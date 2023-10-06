@@ -17,6 +17,15 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
+    public function boards(){
+        return $this->hasMany(Board::class);
+    }
+
+    public static function FindUser($user_id){
+        return static::where('id', $user_id)->first();
+    }
+
     protected $fillable = [
         'name',
         'email',
@@ -41,4 +50,5 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
 }

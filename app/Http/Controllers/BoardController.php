@@ -11,12 +11,12 @@ class BoardController extends Controller
         return view('/', Board::all());
     }
 
-    public function Show($id)
+    public function Show(Board $board)
     {
         return view('/board',
             [
                 "title" => "a board",
-                "board" => Board::find($id)
+                "board" => $board
             ]
         );
     }

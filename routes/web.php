@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BoardController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Models\Board;
 /*
@@ -18,7 +19,7 @@ Route::get('/boards/{user_id}',
     [BoardController::class, 'FindUserBoards']
 );
 
-Route::get('/board/{id}',
+Route::get('/board/{board:slug}',
     [BoardController::class, 'Show']
 );
 
@@ -32,57 +33,15 @@ Route::get('/make_new_board',
     }
 );
 
+//default user for testing
 Route::get('/', 
     function(){
-        $user = [
-            "id" => "1",
-            "username" => "Gilang"
-        ];
+        $user = User::FindUser(1);
 
         return view('home',
             [    
                 "title" => "home",
-                "id" => $user["id"],
-                "username" => $user["username"]
-            ]
-        );
-    }
-);
-
-Route::get('/profile/{id}',
-    function($id){
-        $users = [
-            [
-                "id" => "1",
-                "username" => "Gilang"
-            ]
-        ];
-
-        $fakin_user_dood = [];
-
-        foreach($users as $user){
-            if($user["id"] === $id){
-                $fakin_user_dood = $user;
-            }
-        }
-
-        return view('profile',
-            [    
-                "title" => "ur profile",
-                "username" => $fakin_user_dood["username"]
-            ]
-        );
-    }
-);
-
-Route::get('/about',
-    function(){
-        return view('about', 
-            [
-                "title" => "about",
-                "name" => "Gilang Kurniawan",
-                "email" => "gilangk1902@gmail.com",
-                "image" => "gilang.png"
+                "user" => $user
             ]
         );
     }
