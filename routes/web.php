@@ -14,28 +14,36 @@ use App\Models\Board;
 |
 */
 
-Route::get('/boards/{user_001}',
+Route::get('/boards/{user_id}',
     [BoardController::class, 'FindUserBoards']
 );
 
 Route::get('/board/{id}',
-    [BoardController::class, 'FindBoard']
+    [BoardController::class, 'Show']
+);
+
+Route::get('/make_new_board',
+    function(){
+        return view('make_new_board',
+        [
+            "title" => "make new board dood"
+        ]
+    );
+    }
 );
 
 Route::get('/', 
     function(){
         $user = [
-            "id" => "user_001",
-            "username" => "Gilang",
-            "size" => "Big"
+            "id" => "1",
+            "username" => "Gilang"
         ];
 
         return view('home',
             [    
                 "title" => "home",
                 "id" => $user["id"],
-                "username" => $user["username"],
-                "size" => $user["size"]
+                "username" => $user["username"]
             ]
         );
     }
@@ -45,9 +53,8 @@ Route::get('/profile/{id}',
     function($id){
         $users = [
             [
-                "id" => "user_001",
-                "username" => "Gilang",
-                "size" => "Big"
+                "id" => "1",
+                "username" => "Gilang"
             ]
         ];
 
@@ -62,8 +69,7 @@ Route::get('/profile/{id}',
         return view('profile',
             [    
                 "title" => "ur profile",
-                "username" => $fakin_user_dood["username"],
-                "size" => $fakin_user_dood["size"]
+                "username" => $fakin_user_dood["username"]
             ]
         );
     }

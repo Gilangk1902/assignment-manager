@@ -2,32 +2,14 @@
 
 namespace App\Models;
 
-class Board
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Board extends Model
 {
-    private static $boards = [
-        [
-            "id" => "001",
-            "user_id"  => "user_001",
-            "name" => "Assignment Manager Project",
-            "description" => "mother fucker im so faking retarded what the fuck brah."
-        ],
-        [
-            "id" => "002",
-            "user_id"  => "user_001",
-            "name" => "Home Tasks",
-            "description" => "hey what the fack dood, what yo looking at brah."
-        ]
-    ];
-
-    public static function All(){
-        return collect(self::$boards);
-    }
-
-    public static function Find($id){
-        return static::All()->firstWhere('id', $id);
-    }
+    use HasFactory;
 
     public static function FindUserBoards($user_id){
-        return static::All()->where('user_id', $user_id);
+        return static::where('user_id', $user_id)->get();
     }
 }

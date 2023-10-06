@@ -7,16 +7,16 @@ use Illuminate\Http\Request;
 
 class BoardController extends Controller
 {
-    public function GetAll(){
-        return view('/', Board::All());
+    public function index(){
+        return view('/', Board::all());
     }
 
-    public function FindBoard($id){
-        $current_board = Board::Find($id);
+    public function Show($id)
+    {
         return view('/board',
             [
-                "title" => $current_board["name"],
-                "current_board" => $current_board
+                "title" => "a board",
+                "board" => Board::find($id)
             ]
         );
     }

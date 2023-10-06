@@ -2,7 +2,7 @@
 
 @section('container')
 <h1>
-    hey {{ $current_board["user_id"] }} this your {{ $current_board["name"] }} Board biatch
+    hey {{ $board->user_id}} this your {{ $board->title }} Board biatch
 </h1>
-<h3>{{ $current_board["description"] }}</h3>
+<h3>{{ $board->title }}</h3>
 @endsection
