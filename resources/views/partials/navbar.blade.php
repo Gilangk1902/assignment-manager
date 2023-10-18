@@ -26,14 +26,17 @@
                     </ul>
                 </li>
             </ul>
-        
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
 
-            <div class="mx-4">
-                <img src="" alt="Photo" class="rounded-circle text-light">
+            <div class="d-flex" >
+                @guest
+                    <a href="/login" class="btn btn-primary me-2">Login</a>
+                    <a href="/register" class="btn btn-primary me-2">Register</a>
+                @else
+                <form method="GET" action="{{ route('logout') }}">
+                    @csrf
+                    <a href="{{ route('logout') }}" class="btn btn-primary">Logout</a>
+                </form>
+                @endguest
             </div>
             
         </div>

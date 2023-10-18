@@ -12,13 +12,13 @@ return new class extends Migration
      * @return void
      */
     public function up()
-    {   
-        Schema::create('boards', function (Blueprint $table) {
-            $table->id(); 
-            $table->foreignId('user_id')->onDelete('cascade');
-            $table->text('title');
-            $table->timestamps();
+    {
+        Schema::create('groups', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('board_id')->onDelete('cascade');
+            $table->string('title');
             $table->string('slug')->unique();
+            $table->timestamps();
         });
     }
 
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('boards'); 
+        Schema::dropIfExists('groups');
     }
 };

@@ -5,6 +5,10 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Board;
 use App\Models\User;
+use App\Models\Task;
+use App\Models\Group;
+use Database\Factories\TaskFactory;
+use Hash;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,13 +20,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(10)->create();
-
         User::factory()->create([
             'name' => 'Gilang Kurniawan',
             'email' => 'gilangk1902@gmail.com',
+            'password' => Hash::make('test123')
         ]);
 
-        Board::factory(2)->create();
+        User::factory(10)->create();
+
+        Board::factory(2)->create();    
+        Group::factory(2)->create();
+        Task::factory(2)->create();
     }
 }

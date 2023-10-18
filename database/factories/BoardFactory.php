@@ -17,7 +17,7 @@ class BoardFactory extends Factory
     public function definition()
     {
         return [
-            'title' => fake()->name(),
+            'title' => fake()->word(),
             'slug' => fake()->slug(),
             'user_id' => 1
         ];

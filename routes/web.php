@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BoardController;
+use App\Http\Controllers\LoginController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Models\Board;
@@ -32,6 +33,12 @@ Route::get('/make_new_board',
     );
     }
 );
+
+Route::post('/login', [LoginController::class, 'CheckLogin'])->name('login.post');
+
+Route::get('/login',[LoginController::class, 'index'])->name('form');
+
+Route::get('/logout',  [LoginController::class, 'Logout'])->name('logout');
 
 //default user for testing
 Route::get('/', 
