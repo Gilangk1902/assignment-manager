@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\BoardController;
+use App\Http\Controllers\GroupController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -43,6 +45,12 @@ Route::get('/register', [UserController::class, 'ViewRegisterPage'])->name('form
 Route::get('/logout',  [UserController::class, 'Logout'])->name('logout');
 
 Route::post('/register', [UserController::class, 'Register'])->name('register');
+
+Route::post('/send-right/{board_id}/{group_id}/{task}', [TaskController::class,'SendRight'])->name('send-right');
+
+Route::post('/send-left/{board_id}/{group_id}/{task}', [TaskController::class,'SendLeft'])->name('send-left');
+
+Route::post('/delete/{board_id}/{group_id}/{task}', [TaskController::class,'SendLeft'])->name('delete');
 
 //default user for testing
 Route::get('/', 

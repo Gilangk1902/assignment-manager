@@ -24,7 +24,11 @@ class Board extends Model
     }
 
     public function groups(){
-        return $this->hasMany(Board::class);
+        return $this->hasMany(Group::class);
+    }
+
+    public function categories(){
+        
     }
 }
 
