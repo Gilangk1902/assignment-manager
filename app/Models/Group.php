@@ -17,7 +17,8 @@ class Group extends Model
 
     protected $fillable = [
         'board_id',  
-        'title'
+        'title',
+        'slug'
     ];
 
     public function board(){

@@ -50,7 +50,11 @@ Route::post('/send-right/{board_id}/{group_id}/{task}', [TaskController::class,'
 
 Route::post('/send-left/{board_id}/{group_id}/{task}', [TaskController::class,'SendLeft'])->name('send-left');
 
-Route::post('/delete/{board_id}/{group_id}/{task}', [TaskController::class,'SendLeft'])->name('delete');
+Route::post('/delete/{board_id}/{group_id}/{task}', [TaskController::class,'Delete'])->name('delete');
+
+Route::post('/add-new/{board_id}', [GroupController::class,'AddNew'])->name('add-new');
+
+Route::post('/add-new-task/{board_id}/{group_id}', [TaskController::class,'AddNewTask'])->name('add-new-task');
 
 //default user for testing
 Route::get('/', 

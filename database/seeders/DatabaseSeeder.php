@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
         User::factory(10)->create();
 
         Board::factory(2)->create();    
-        Group::factory(2)->create();
-        Task::factory(2)->create();
+        Group::factory(3)->create();
+        Task::factory(3)->create();
     }
 }

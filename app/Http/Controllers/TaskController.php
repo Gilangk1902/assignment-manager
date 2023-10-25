@@ -9,20 +9,13 @@ use App\Models\Group;
 
 class TaskController extends Controller
 {
-    private function getGroupByIndex($board_id, $index){
-        //this method is for getting the group id by index of its array counterpart
-        $groupController = new GroupController();
-        $groups = $groupController->getGroups($board_id);
-
-        if ($index >= 0 && $index < count($groups)) {
-            return $groups[$index]->id;
-        } else {
-            return null;
-        }
-    }
-
+    private const LEFT = -1;
+    private const RIGHT = 1;
     public function SendRight($board_id, $group_id,Task $task){
-        $new_group_id = $this->getGroupByIndex($board_id, 1);
+        $group_controller = new GroupController();
+
+        $direction = $this->Direction($board_id, $group_id, self::RIGHT);
+        $new_group_id = $group_controller->getGroupByIndex($board_id, $direction);
         $this->InsertTask($task, $new_group_id);
         $this->DeleteTask($group_id, $task->id);
 
@@ -30,10 +23,39 @@ class TaskController extends Controller
     }
 
     public function SendLeft($board_id, $group_id,Task $task){
-        $new_group_id = $this->getGroupByIndex($board_id, 0);
+        $group_controller = new GroupController();
+        
+        $direction = $this->Direction($board_id, $group_id, self::LEFT);
+        $new_group_id = $group_controller->getGroupByIndex($board_id, $direction);
         $this->InsertTask($task, $new_group_id);
         $this->DeleteTask($group_id, $task->id);
         
+        return back();
+    }
+    public function Direction($board_id, $group_id, $direction){
+        $group_controller = new GroupController();
+        $index_of_current_group = $group_controller->getIndexOfGroup($board_id, $group_id);
+        
+        if($index_of_current_group == 0 && $direction == self::LEFT){
+            return $index_of_current_group;
+        }
+        else if($index_of_current_group == count($group_controller->getGroups($board_id))-1 && $direction == self::RIGHT){
+            return $index_of_current_group;
+        }
+
+        $new_index = $index_of_current_group + $direction;
+        return $new_index;
+    }
+
+    public function AddNewTask($group_id){
+        Task::create(
+            [
+                "title" => "new task",
+                "slug" => fake()->slug(),
+                "group_id" => $group_id
+            ]
+        );
+
         return back();
     }
 
@@ -45,6 +67,11 @@ class TaskController extends Controller
                 "group_id" => $group_id
             ]
         );
+    }
+
+    public function Delete($board_id, $group_id, Task $task){
+        $this->DeleteTask($group_id, $task->id);
+        return back();
     }
 
     public function DeleteTask($group_id, $id){
