@@ -47,7 +47,15 @@ class TaskController extends Controller
         return $new_index;
     }
 
-    public function AddNewTask($group_id){
+    public function UpdateTaskTitle(Request $request, $task_id){
+        $task = Task::find($task_id);
+        $task->title = $request->input('task-input-title');
+        $task->save();
+
+        return redirect()->back();
+    }
+
+    public function AddNewTask($board_id, $group_id){
         Task::create(
             [
                 "title" => "new task",

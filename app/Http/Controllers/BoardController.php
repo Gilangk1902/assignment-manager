@@ -30,4 +30,14 @@ class BoardController extends Controller
             ]
         );
     }
+
+    public function UpdateBoardTitle(Request $request, $board_id){
+        $board = Board::find($board_id);
+
+        $board->title = $request->input('board-input-title');
+
+        $board->save();
+
+        return redirect()->back();
+    }
 }

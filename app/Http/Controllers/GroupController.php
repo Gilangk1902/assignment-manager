@@ -24,6 +24,19 @@ class GroupController extends Controller
         return back();
     }
 
+    public function UpdateGroupTitle(Request $request, $group_id){
+        $group = Group::find($group_id);
+        $group->title = $request->input('group-input-title');
+        $group->save();
+
+        return redirect()->back();
+    }
+
+    public function Delete($board_id, $group_id){
+        Group::where("id", $group_id)->delete();
+        return back();
+    }
+
     public function getIndexOfGroup($board_id, $group_id){
         $groups = $this->getGroups($board_id);
 

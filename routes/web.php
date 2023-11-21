@@ -50,11 +50,19 @@ Route::post('/send-right/{board_id}/{group_id}/{task}', [TaskController::class,'
 
 Route::post('/send-left/{board_id}/{group_id}/{task}', [TaskController::class,'SendLeft'])->name('send-left');
 
-Route::post('/delete/{board_id}/{group_id}/{task}', [TaskController::class,'Delete'])->name('delete');
+Route::post('/delete-task/{board_id}/{group_id}/{task}', [TaskController::class,'Delete'])->name('delete');
+
+Route::post('/delete-group/{board_id}/{group_id}', [GroupController::class,'Delete'])->name('delete');
 
 Route::post('/add-new/{board_id}', [GroupController::class,'AddNew'])->name('add-new');
 
 Route::post('/add-new-task/{board_id}/{group_id}', [TaskController::class,'AddNewTask'])->name('add-new-task');
+
+Route::post('/update-board/{board_id}', [BoardController::class, 'UpdateBoardTitle'])->name('update-board-title');
+
+Route::post('/update-group/{group_id}', [GroupController::class, 'UpdateGroupTitle'])->name('update-group-title');
+
+Route::post('/update-task/{task_id}', [TaskController::class, 'UpdateTaskTitle'])->name('update-task-title');
 
 //default user for testing
 Route::get('/', 
