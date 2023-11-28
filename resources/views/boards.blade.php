@@ -15,5 +15,31 @@
             </div> 
         @endforeach
     </div>
+    {{-- Add New Board --}}
+    <div class="card-header my-2"> 
+        @csrf
+        <button id="add-new-board-button" type="submit" class="add-new-board-button btn btn-primary btn-sm"
+        >+ Add New Board</button>
+    </div>
+
+    <script>
+        $(document).on('click', '.add-new-board-button', function(event){
+            event.preventDefault();
+            $.ajax({
+                url: "/add-new-board",
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    console.log("executed");
+                    location.reload();
+                },
+                error: function(error) {
+                   console.error(error);
+                }
+            });
+        });
+    </script>
 @endsection   
     

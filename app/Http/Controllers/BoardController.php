@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Board;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BoardController extends Controller
 {
@@ -27,6 +28,17 @@ class BoardController extends Controller
             [
                 "title" => "Your Boards",
                 'user_boards' => $user_boards
+            ]
+        );
+    }
+
+    public function AddNewBoard(){
+        Board::Create(
+            [
+                "user_id" => Auth::id(),
+                "title" => "New Board",
+                "description" => fake()->sentence(),
+                "slug"  => fake()->slug()
             ]
         );
     }

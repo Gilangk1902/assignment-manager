@@ -54,7 +54,9 @@ Route::post('/delete-task/{board_id}/{group_id}/{task_id}', [TaskController::cla
 
 Route::post('/delete-group/{board_id}/{group_id}', [GroupController::class,'Delete'])->name('delete');
 
-Route::post('/add-new/{board_id}', [GroupController::class,'AddNew'])->name('add-new');
+Route::post('/add-new-board', [BoardController::class, 'AddNewBoard'])->name('add-new-board');
+
+Route::post('/add-new-group/{board_id}', [GroupController::class,'AddNew'])->name('add-new');
 
 Route::post('/add-new-task/{board_id}/{group_id}', [TaskController::class,'AddNewTask'])->name('add-new-task');
 

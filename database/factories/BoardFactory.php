@@ -19,6 +19,7 @@ class BoardFactory extends Factory
         return [
             'title' => fake()->word(),
             'slug' => fake()->slug(),
+            'description' => fake()->sentence(),
             'user_id' => 1
         ];
     }
