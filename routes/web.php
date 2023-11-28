@@ -46,11 +46,11 @@ Route::get('/logout',  [UserController::class, 'Logout'])->name('logout');
 
 Route::post('/register', [UserController::class, 'Register'])->name('register');
 
-Route::post('/send-right/{board_id}/{group_id}/{task}', [TaskController::class,'SendRight'])->name('send-right');
+Route::post('/send-right/{board_id}/{group_id}/{task_id}', [TaskController::class,'SendRight'])->name('send-right');
 
-Route::post('/send-left/{board_id}/{group_id}/{task}', [TaskController::class,'SendLeft'])->name('send-left');
+Route::post('/send-left/{board_id}/{group_id}/{task_id}', [TaskController::class,'SendLeft'])->name('send-left');
 
-Route::post('/delete-task/{board_id}/{group_id}/{task}', [TaskController::class,'Delete'])->name('delete');
+Route::post('/delete-task/{board_id}/{group_id}/{task_id}', [TaskController::class,'Delete'])->name('delete-task');
 
 Route::post('/delete-group/{board_id}/{group_id}', [GroupController::class,'Delete'])->name('delete');
 

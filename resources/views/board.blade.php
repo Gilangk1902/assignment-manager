@@ -31,29 +31,39 @@
                 <div class="row ">
                     <p class="col m-2 mx-3">{{$task->title}}</p>
                     {{-- edit button --}}
-                    <button type="button" class="btn btn-primary btn-sm col-2" data-bs-toggle="modal" data-bs-target="#edit-task-title-modal" data-task-id="{{ $task->id }}" data-task-title="{{ $task->title }}">
+                    <button type="button" class="btn btn-primary btn-sm col-2" data-bs-toggle="modal" data-bs-target="#edit-task-title-modal" 
+                        data-task-id="{{ $task->id }}" data-task-title="{{ $task->title }}">
                         Edit
                     </button>
                     {{-- manage task buttons --}}
                     <div class="col">
                         <div class="row">
                             <div class="col-3">
-                                <form method="POST" action="/send-left/{{$board->id}}/{{$group->id}}/{{ $task->id }}">
+                                <!-- <form method="POST" action="">
                                     @csrf
-                                    <button id="refresh-page" type="submit" class="btn btn-primary btn-sm"> < </button>
-                                </form>
+                                    <button id="left-button" type="submit" class="btn btn-primary btn-sm" 
+                                        data-board-id="{{$board->id}}" data-group-id="{{$group->id}}" data-task-id="{{$task->id}}"> < </button>
+                                </form> -->
+                                <button id="left-button" type="submit" class="left-button btn btn-primary btn-sm" 
+                                        data-board-id="{{$board->id}}" data-group-id="{{$group->id}}" data-task-id="{{$task->id}}"> < </button>
                             </div>
                             <div class="col-3">
-                                <form method="POST" action="/delete-task/{{$board->id}}/{{$group->id}}/{{ $task->id }}">
+                                <!-- <form method="POST" action="/delete-task/{{$board->id}}/{{$group->id}}/{{ $task->id }}">
                                     @csrf
-                                    <button id="refresh-page" type="submit" class="btn btn-primary btn-sm"> X </button>
-                                </form>
+                                    <button id="delete-button" type="submit" class="btn btn-primary btn-sm"
+                                        data-board-id="{{$board->id}}" data-group-id="{{$group->id}}" data-task-id="{{$task->id}}"> X </button>
+                                </form> -->
+                                <button id="delete-button" type="submit" class="delete-button btn btn-primary btn-sm"
+                                        data-board-id="{{$board->id}}" data-group-id="{{$group->id}}" data-task-id="{{$task->id}}"> X </button>
                             </div>
                             <div class="col-3">
-                                <form method="POST" action="/send-right/{{$board->id}}/{{$group->id}}/{{ $task->id }}">
+                                <!-- <form method="POST" action="">
                                     @csrf
-                                    <button id="refresh-page" type="submit" class="btn btn-primary btn-sm"> > </button>
-                                </form>
+                                    <button id="right-button" type="submit" class="btn btn-primary btn-sm"
+                                        data-board-id="{{$board->id}}" data-group-id="{{$group->id}}" data-task-id="{{$task->id}}"> > </button>
+                                </form> -->
+                                <button id="right-button" type="submit" class="right-button btn btn-primary btn-sm"
+                                        data-board-id="{{$board->id}}" data-group-id="{{$group->id}}" data-task-id="{{$task->id}}"> > </button>
                             </div>
                         </div>
                     </div>
@@ -163,7 +173,89 @@
     </div>
 </div>
 
+<!-- /send-left/{{$board->id}}/{{$group->id}}/{{ $task->id }} -->
 <script>
+    $(document).on('click', '.right-button', function(event) {
+        event.preventDefault();
+
+        var right_button = $(this);
+        var board_id = right_button.data('board-id');
+        var task_id = right_button.data('task-id');
+        var group_id = right_button.data('group-id');
+
+        $.ajax(
+            {
+                url: "/send-right/" + board_id + "/" + group_id + "/" + task_id,
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    // Handle success response if needed
+                    console.log("executed");
+                    location.reload();
+                },
+                error: function(error) {
+                    // Handle error if needed
+                    console.error("error");
+                }
+            }
+        );
+    });
+    $(document).on('click', '.left-button', function(event) {
+        event.preventDefault();
+
+        var left_button = $(this);
+        var board_id = left_button.data('board-id');
+        var task_id = left_button.data('task-id');
+        var group_id = left_button.data('group-id');
+
+        $.ajax(
+            {
+                url: "/send-left/" + board_id + "/" + group_id + "/" + task_id,
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    // Handle success response if needed
+                    console.log("executed");
+                    location.reload();
+                },
+                error: function(error) {
+                    // Handle error if needed
+                    console.error("error");
+                }
+            }
+        );
+    });
+    $(document).on('click', '.delete-button', function(event) {
+        event.preventDefault();
+
+        var delete_button = $(this);
+        var board_id = delete_button.data('board-id');
+        var task_id = delete_button.data('task-id');
+        var group_id = delete_button.data('group-id');
+
+        $.ajax(
+            {
+                url: "/delete-task/" + board_id + "/" + group_id + "/" + task_id,
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    // Handle success response if needed
+                    console.log("executed");
+                    location.reload();
+                },
+                error: function(error) {
+                    // Handle error if needed
+                    console.error("error");
+                }
+            }
+        );
+    });
     $(document).ready(function(){
         $('#edit-board-title-modal').on('show.bs.modal', event => {
             var button = $(event.relatedTarget);

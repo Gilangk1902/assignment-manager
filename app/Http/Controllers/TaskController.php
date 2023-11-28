@@ -11,26 +11,25 @@ class TaskController extends Controller
 {
     private const LEFT = -1;
     private const RIGHT = 1;
-    public function SendRight($board_id, $group_id,Task $task){
+    public function SendRight($board_id, $group_id, $task_id){
         $group_controller = new GroupController();
 
         $direction = $this->Direction($board_id, $group_id, self::RIGHT);
         $new_group_id = $group_controller->getGroupByIndex($board_id, $direction);
-        $this->InsertTask($task, $new_group_id);
-        $this->DeleteTask($group_id, $task->id);
+        
+        $this->InsertTask($task_id, $new_group_id);
+        $this->DeleteTask($group_id, $task_id);
 
-        return back();
     }
 
-    public function SendLeft($board_id, $group_id,Task $task){
+    public function SendLeft($board_id, $group_id,$task_id){
         $group_controller = new GroupController();
         
         $direction = $this->Direction($board_id, $group_id, self::LEFT);
         $new_group_id = $group_controller->getGroupByIndex($board_id, $direction);
-        $this->InsertTask($task, $new_group_id);
-        $this->DeleteTask($group_id, $task->id);
+        $this->InsertTask($task_id, $new_group_id);
+        $this->DeleteTask($group_id, $task_id);
         
-        return back();
     }
     public function Direction($board_id, $group_id, $direction){
         $group_controller = new GroupController();
@@ -67,18 +66,20 @@ class TaskController extends Controller
         return back();
     }
 
-    public function InsertTask(Task $task, $group_id){
+    public function InsertTask($task_id, $group_id){
+        $new_task = Task::find($task_id);
+        
         Task::create(
             [
-                "title" => $task->title,
+                "title" => $new_task->title,
                 "slug" => fake()->slug(),
                 "group_id" => $group_id
             ]
         );
     }
 
-    public function Delete($board_id, $group_id, Task $task){
-        $this->DeleteTask($group_id, $task->id);
+    public function Delete($board_id, $group_id, $task_id){
+        $this->DeleteTask($group_id, $task_id);
         return back();
     }
 
