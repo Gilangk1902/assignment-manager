@@ -10,6 +10,4 @@
         <h3><a href="/boards/{{ $user->id }}"> View Your Boards </a></h3>
     @endguest
     
-    
-
 @endsection   
