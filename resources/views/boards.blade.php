@@ -3,26 +3,30 @@
 @section('container')
 
     <div class="container-lg">
-        <h1>{{ $user_boards->first()->user->name }}'s Boards</h1>
+        @if ($user_boards->isNotEmpty())
+            <h1>{{ $user_boards->first()->user->name }}'s Boards</h1>
 
-        <div class="row">
-        @foreach ($user_boards as $board)
-            <div class="col-6 col-xl-3 col-lg-4 mt-4">
-                <div class="card">
-                    <div class="card-body text">
-                        <h5 class="card-title" style="white-space: nowrap; width: 160px; overflow: hidden; text-overflow: ellipsis;">{{$board->title}}</h5>
+            <div class="row">
+            @foreach ($user_boards as $board)
+                <div class="col-6 col-xl-3 col-lg-4 mt-4">
+                    <div class="card">
+                        <div class="card-body text">
+                            <h5 class="card-title" style="white-space: nowrap; width: 160px; overflow: hidden; text-overflow: ellipsis;">{{$board->title}}</h5>
 
-                        <p class="card-text" style="white-space: nowrap; width: 160px; overflow: hidden; text-overflow: ellipsis;">{{$board->description}}</p>
+                            <p class="card-text" style="white-space: nowrap; width: 160px; overflow: hidden; text-overflow: ellipsis;">{{$board->description}}</p>
 
-                        <div class="d-flex justify-content-end">
-                            <a href="/board/{{ $board->slug }}" class="btn btn-outline-primary" style="">Go to board</a>
+                            <div class="d-flex justify-content-end">
+                                <a href="/board/{{ $board->slug }}" class="btn btn-outline-primary" style="">Go to board</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div> 
-        @endforeach
-        </div>
-
+                </div> 
+            @endforeach
+            </div>
+        @else
+            <h1> {{ Auth::user()->name }} doesn't have any boards yet. </h1>
+            <p>you don't have any boards yet.</p>
+        @endif
         {{-- Add New Board --}}
         <div class="card-header mt-4"> 
             @csrf

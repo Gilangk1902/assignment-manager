@@ -20,7 +20,7 @@ use App\Models\Board;
 
 Route::get('/boards/{user_id}',
     [BoardController::class, 'FindUserBoards']
-);
+)->name('boards.show');
 
 Route::get('/board/{board:slug}',
     [BoardController::class, 'Show']
@@ -54,7 +54,9 @@ Route::post('/delete-task/{board_id}/{group_id}/{task_id}', [TaskController::cla
 
 Route::post('/delete-group/{board_id}/{group_id}', [GroupController::class,'Delete'])->name('delete');
 
-Route::post('/add-new-board', [BoardController::class, 'AddNewBoard'])->name('add-new-board');
+Route::post('/add-new-board', [BoardController::class, 'AddNewDefaultBoard'])->name('add-new-board');
+
+Route::post('/add-new-board-with-title', [BoardController::class, 'AddNewBoard'])->name('add-new-board-with-title');
 
 Route::post('/add-new-group/{board_id}', [GroupController::class,'AddNew'])->name('add-new');
 

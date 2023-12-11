@@ -32,7 +32,7 @@ class BoardController extends Controller
         );
     }
 
-    public function AddNewBoard(){
+    public function AddNewDefaultBoard(){
         Board::Create(
             [
                 "user_id" => Auth::id(),
@@ -41,6 +41,18 @@ class BoardController extends Controller
                 "slug"  => fake()->slug()
             ]
         );
+    }
+
+    public function AddNewBoard($title){
+        Board::Create(
+            [
+                "user_id" => Auth::id(),
+                "title" => $title,
+                "description" => fake()->sentence(),
+                "slug"  => fake()->slug()
+            ]
+        );
+        return redirect()->route('boards.show', ['user_id' => Auth::id()]);
     }
 
     public function UpdateBoardTitle(Request $request, $board_id){

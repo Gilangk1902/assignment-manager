@@ -9,7 +9,7 @@
                         Boards
                     </a>
                     <ul class="dropdown-menu">
-                        @foreach ($boards as $board)
+                        @foreach (Auth::user()->boards as $board)
                             <li><a href="/board/{{ $board->slug }}" class="dropdown-item text-decoration-none">{{ $board->title }}</a></li>
                         @endforeach
 
