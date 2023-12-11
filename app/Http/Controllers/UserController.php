@@ -22,13 +22,10 @@ class UserController extends Controller
     }
 
     public function Login(Request $request){
-        $this->validate(
-            $request,
-            [
-                'email' => 'required|email',
-                'password' => 'required'
-            ]
-        );
+        $request->validate([
+            'email'    => 'required|email|exists:users,email',
+            'password' => 'required',
+        ]);
 
         $user_data = array(
             'email' => $request->get('email'),
@@ -39,7 +36,7 @@ class UserController extends Controller
             return redirect('/');
         }
         else{
-            return back()->with('error', 'login failed');
+            return back()->with('error', 'Login failed. Please check your credentials.')->withErrors(['password' => 'Invalid password']);
         }
     }
 
@@ -49,23 +46,22 @@ class UserController extends Controller
     }
 
     public function Register(Request $request){
-        $this->validate(
-            $request,
-            [
-                'name' => 'required',
-                'email' => 'required|email',
-                'password' => 'required'
-            ]
-        );
-
-        User::create(
-            [
-                'name' => $request->input('name'),
-                'email' => $request->input('email'),
-                'password' => Hash::make($request->input('password'))
-            ]
-        );
-
-        return redirect('/login');
+        $validator = Validator::make($request->all(), [
+            'name'     => 'required',
+            'email'    => 'required|email|unique:users,email',
+            'password' => 'required|min:6|confirmed', 
+        ]);
+    
+        if ($validator->fails()) {
+            return redirect('/register')->withErrors($validator)->withInput();
+        }
+    
+        User::create([
+            'name'     => $request->input('name'),
+            'email'    => $request->input('email'),
+            'password' => Hash::make($request->input('password')),
+        ]);
+    
+        return redirect('/login')->with('success', 'Registration successful. Please login.');
     }
 }
