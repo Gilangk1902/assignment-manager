@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg bg-dark ">
-    <div class="container-fluid mx-2">
+<nav class="navbar navbar-expand-lg bg-dark">
+    <div class="container">
         <a class="navbar-brand text-light" href="/">Assigment Manager</a>
         
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -9,8 +9,10 @@
                         Boards
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        @foreach ($boards as $board)
+                            <li><a href="/board/{{ $board->slug }}" class="dropdown-item text-decoration-none">{{ $board->title }}</a></li>
+                        @endforeach
+
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="/make_new_board">Create new Board</a></li>
                     </ul>

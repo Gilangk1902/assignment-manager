@@ -17,9 +17,9 @@ class BoardFactory extends Factory
     public function definition()
     {
         return [
-            'title' => fake()->word(),
+            'title' => fake()->text(mt_rand(5, 50)),
             'slug' => fake()->slug(),
-            'description' => fake()->sentence(),
+            'description' => fake()->text(mt_rand(5, 100)),
             'user_id' => 1
         ];
     }

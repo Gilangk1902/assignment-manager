@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Models\Task;
 use App\Models\Group;
 use Database\Factories\TaskFactory;
-use Hash;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
 
         User::factory(10)->create();
 
-        Board::factory(2)->create();    
+        Board::factory(5)->create();    
         Group::factory(3)->create();
         Task::factory(3)->create();
     }

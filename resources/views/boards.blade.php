@@ -1,26 +1,36 @@
 @extends('layouts.main')
 
 @section('container')
-    <h2>this your boards biatch</h2>
-    <div class="row">
+
+    <div class="container-lg">
+        <h1>{{ $user_boards->first()->user->name }}'s Boards</h1>
+
+        <div class="row">
         @foreach ($user_boards as $board)
-            <div class="">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">{{$board->title}}</h5>
-                        <p class="card-text">{{$board->description}}</p>
-                        <a href="/board/{{ $board->slug }}" class="btn btn-primary">Go to board</a>
+            <div class="col-6 col-xl-3 col-lg-4 mt-4">
+                <div class="card">
+                    <div class="card-body text">
+                        <h5 class="card-title" style="white-space: nowrap; width: 160px; overflow: hidden; text-overflow: ellipsis;">{{$board->title}}</h5>
+
+                        <p class="card-text" style="white-space: nowrap; width: 160px; overflow: hidden; text-overflow: ellipsis;">{{$board->description}}</p>
+
+                        <div class="d-flex justify-content-end">
+                            <a href="/board/{{ $board->slug }}" class="btn btn-outline-primary" style="">Go to board</a>
+                        </div>
                     </div>
                 </div>
             </div> 
         @endforeach
+        </div>
+
+        {{-- Add New Board --}}
+        <div class="card-header mt-4"> 
+            @csrf
+            <button id="add-new-board-button" type="submit" class="add-new-board-button btn btn-primary btn-sm"
+            >+ Add New Board</button>
+        </div>
     </div>
-    {{-- Add New Board --}}
-    <div class="card-header my-2"> 
-        @csrf
-        <button id="add-new-board-button" type="submit" class="add-new-board-button btn btn-primary btn-sm"
-        >+ Add New Board</button>
-    </div>
+
 
     <script>
         $(document).on('click', '.add-new-board-button', function(event){
