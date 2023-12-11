@@ -9,9 +9,15 @@
                         Boards
                     </a>
                     <ul class="dropdown-menu">
-                        @foreach (Auth::user()->boards as $board)
-                            <li><a href="/board/{{ $board->slug }}" class="dropdown-item text-decoration-none">{{ $board->title }}</a></li>
-                        @endforeach
+                        @auth
+                            @forelse (Auth::user()->boards as $board)
+                                <li><a href="/board/{{ $board->slug }}" class="dropdown-item text-decoration-none">{{ $board->title }}</a></li>
+                            @empty
+                                <li><a class="dropdown-item text-decoration-none" href="#">No boards available</a></li>
+                            @endforelse
+                        @else
+                            <li><a class="dropdown-item text-decoration-none" href="#">Please log in</a></li>
+                        @endauth
 
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="/make_new_board">Create new Board</a></li>
