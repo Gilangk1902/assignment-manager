@@ -1,133 +1,199 @@
-$(document).on('click', '.right-button', function(event) {
-    event.preventDefault();
-
-    var right_button = $(this);
-    var board_id = right_button.data('board-id');
-    var task_id = right_button.data('task-id');
-    var group_id = right_button.data('group-id');
-
-    $.ajax(
-        {
-            url: "/send-right/" + board_id + "/" + group_id + "/" + task_id,
-            type: "POST",
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(response) {
-                // Handle success response if needed
-                console.log("executed");
-                location.reload();
-            },
-            error: function(error) {
-                // Handle error if needed
-                console.error("error");
+$(document).ready(function(){
+    $(document).on('click', '.right-button', function(event) {
+        event.preventDefault();
+    
+        console.log("right button clicked");  // Add this line
+    
+        var right_button = $(this);
+        var board_id = right_button.data('board-id');
+        var task_id = right_button.data('task-id');
+        var group_id = right_button.data('group-id');
+    
+        $.ajax(
+            {
+                url: "/send-right/" + board_id + "/" + group_id + "/" + task_id,
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    // Handle success response if needed
+                    console.log("executed");
+                    location.reload();
+                },
+                error: function(error) {
+                    // Handle error if needed
+                    console.error("error");
+                }
             }
-        }
-    );
-});
-$(document).on('click', '.left-button', function(event) {
-    event.preventDefault();
-
-    var left_button = $(this);
-    var board_id = left_button.data('board-id');
-    var task_id = left_button.data('task-id');
-    var group_id = left_button.data('group-id');
-
-    $.ajax(
-        {
-            url: "/send-left/" + board_id + "/" + group_id + "/" + task_id,
-            type: "POST",
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(response) {
-                // Handle success response if needed
-                console.log("executed");
-                location.reload();
-            },
-            error: function(error) {
-                // Handle error if needed
-                console.error("error");
+        );
+    });
+    $(document).on('click', '.left-button', function(event) {
+        event.preventDefault();
+    
+        console.log("left button clicked");  // Add this line
+    
+        var left_button = $(this);
+        var board_id = left_button.data('board-id');
+        var task_id = left_button.data('task-id');
+        var group_id = left_button.data('group-id');
+    
+        $.ajax(
+            {
+                url: "/send-left/" + board_id + "/" + group_id + "/" + task_id,
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    // Handle success response if needed
+                    console.log("executed");
+                    location.reload();
+                },
+                error: function(error) {
+                    // Handle error if needed
+                    console.error("error");
+                }
             }
-        }
-    );
-});
-$(document).on('click', '.delete-button', function(event) {
-    event.preventDefault();
-
-    var delete_button = $(this);
-    var board_id = delete_button.data('board-id');
-    var task_id = delete_button.data('task-id');
-    var group_id = delete_button.data('group-id');
-
-    $.ajax(
-        {
-            url: "/delete-task/" + board_id + "/" + group_id + "/" + task_id,
-            type: "POST",
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(response) {
-                // Handle success response if needed
-                console.log("executed");
-                location.reload();
-            },
-            error: function(error) {
-                // Handle error if needed
-                console.error("error");
+        );
+    });
+    $(document).on('click', '.up-button', function(event) {
+        event.preventDefault();
+    
+        console.log("Up button clicked");  // Add this line
+    
+        var up_button = $(this);
+        var board_id = up_button.data('board-id');
+        var task_id = up_button.data('task-id');
+        var group_id = up_button.data('group-id');
+    
+        $.ajax(
+            {
+                url: "/send-up/" + board_id + "/" + group_id + "/" + task_id,
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    // Handle success response if needed
+                    console.log("executed");
+                    location.reload();
+                },
+                error: function(error) {
+                    // Handle error if needed
+                    console.error("error");
+                }
             }
-        }
-    );
-});
-$(document).on('click', '.add-new-group-button', function(event) {
-    event.preventDefault();
-
-    var board_id = $(this).data('board-id');
-
-    $.ajax(
-        {
-            url: "/add-new-group/" + board_id,
-            type: "POST",
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(response) {
-                // Handle success response if needed
-                console.log("executed");
-                location.reload();
-            },
-            error: function(error) {
-                // Handle error if needed
-                console.error("error");
+        );
+    });
+    $(document).on('click', '.down-button', function(event) {
+        event.preventDefault();
+    
+        console.log("down button clicked");  // Add this line
+    
+        var down_button = $(this);
+        var board_id = down_button.data('board-id');
+        var task_id = down_button.data('task-id');
+        var group_id = down_button.data('group-id');
+    
+        $.ajax(
+            {
+                url: "/send-down/" + board_id + "/" + group_id + "/" + task_id,
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    // Handle success response if needed
+                    console.log("executed");
+                    location.reload();
+                },
+                error: function(error) {
+                    // Handle error if needed
+                    console.error("error");
+                }
             }
-        }
-    );
-});
-$(document).on('click', '.add-new-task-button', function(event) {
-    event.preventDefault();
-
-    var board_id = $(this).data('board-id');
-    var group_id = $(this).data('group-id');
-
-    $.ajax(
-        {
-            url: "/add-new-task/" + board_id + "/" + group_id,
-            type: "POST",
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(response) {
-                // Handle success response if needed
-                console.log("executed");
-                location.reload();
-            },
-            error: function(error) {
-                // Handle error if needed
-                console.error("error");
+        );
+    });
+    
+    $(document).on('click', '.delete-button', function(event) {
+        event.preventDefault();
+    
+        var delete_button = $(this);
+        var board_id = delete_button.data('board-id');
+        var task_id = delete_button.data('task-id');
+        var group_id = delete_button.data('group-id');
+    
+        $.ajax(
+            {
+                url: "/delete-task/" + board_id + "/" + group_id + "/" + task_id,
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    // Handle success response if needed
+                    console.log("executed");
+                    location.reload();
+                },
+                error: function(error) {
+                    // Handle error if needed
+                    console.error("error");
+                }
             }
-        }
-    );
+        );
+    });
+    $(document).on('click', '.add-new-group-button', function(event) {
+        event.preventDefault();
+    
+        var board_id = $(this).data('board-id');
+    
+        $.ajax(
+            {
+                url: "/add-new-group/" + board_id,
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    // Handle success response if needed
+                    console.log("executed");
+                    location.reload();
+                },
+                error: function(error) {
+                    // Handle error if needed
+                    console.error("error");
+                }
+            }
+        );
+    });
+    $(document).on('click', '.add-new-task-button', function(event) {
+        event.preventDefault();
+    
+        var board_id = $(this).data('board-id');
+        var group_id = $(this).data('group-id');
+    
+        $.ajax(
+            {
+                url: "/add-new-task/" + board_id + "/" + group_id,
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    // Handle success response if needed
+                    console.log("executed");
+                    location.reload();
+                },
+                error: function(error) {
+                    // Handle error if needed
+                    console.error("error");
+                }
+            }
+        );
+    });
 });
+
 
 //Modal Scripts
 $(document).ready(function(){

@@ -25,7 +25,7 @@ class Board extends Model
     }
 
     public function groups(){
-        return $this->hasMany(Group::class);
+        return $this->hasMany(Group::class)->orderBy('position');
     }
 
     public function categories(){

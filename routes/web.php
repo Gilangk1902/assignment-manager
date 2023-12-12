@@ -20,11 +20,11 @@ use App\Models\Board;
 
 Route::get('/boards/{user_id}',
     [BoardController::class, 'FindUserBoards']
-)->name('boards.show');
+)->name('boards.boards');
 
 Route::get('/board/{board:slug}',
     [BoardController::class, 'Show']
-);
+)->name('board.board');
 
 Route::get('/make_new_board',
     function(){
@@ -49,6 +49,10 @@ Route::post('/register', [UserController::class, 'Register'])->name('register');
 Route::post('/send-right/{board_id}/{group_id}/{task_id}', [TaskController::class,'SendRight'])->name('send-right');
 
 Route::post('/send-left/{board_id}/{group_id}/{task_id}', [TaskController::class,'SendLeft'])->name('send-left');
+
+Route::post('/send-up/{board_id}/{group_id}/{task_id}', [TaskController::class,'SendUp'])->name('send-up');
+
+Route::post('/send-down/{board_id}/{group_id}/{task_id}', [TaskController::class,'SendDown'])->name('send-down');
 
 Route::post('/delete-task/{board_id}/{group_id}/{task_id}', [TaskController::class,'Delete'])->name('delete-task');
 

@@ -13,13 +13,18 @@ class GroupController extends Controller
     }
 
     public function AddNew($board_id){
-        Group::Create(
-            [
-                "board_id" => $board_id,
-                "title" => "New Group",
-                "slug"  => fake()->slug()
-            ]
-        );
+        $last_group = Group::where('board_id', $board_id)->orderBy('position', 'desc')->first();
+
+        $position = $last_group ? $last_group->position + 1 : 0;
+
+        // Create a new group with the determined position
+        Group::create([
+            'board_id' => $board_id,
+            'title' => 'New Group',
+            'slug' => fake()->slug(),
+            'position' => $position,
+            // Add other attributes as needed
+        ]);
 
         return back();
     }
@@ -33,29 +38,37 @@ class GroupController extends Controller
     }
 
     public function Delete($board_id, $group_id){
-        Group::where("id", $group_id)->delete();
+        $group = Group::findOrFail($group_id);
+
+        $position = $group->position;
+
+        $group->delete();
+
+        Group::where('board_id', $board_id)
+            ->where('position', '>', $position)
+            ->decrement('position');
+
         return back();
     }
 
-    public function getIndexOfGroup($board_id, $group_id){
-        $groups = $this->getGroups($board_id);
+    public function getPositionOfGroup($board_id, $group_id){
+        $group = Group::where('board_id', $board_id)
+                ->where('id', $group_id)
+                ->first();
 
-        for($i = 0; $i < count($groups); $i++){
-            if($groups[$i]->id == $group_id){
-                return $i;
-            }
+        if ($group) {
+            return $group->position;
         }
+
         return null;
     }
 
-    public function getGroupByIndex($board_id, $index){
-        $groups = $this->getGroups($board_id);
+    public function getGroupByPosition($board_id, $position){
+        $group = Group::where('board_id', $board_id)
+        ->where('position', $position)
+        ->first();
 
-        if ($index >= 0 && $index < count($groups)) {
-            return $groups[$index]->id;
-        } else {
-            return null;
-        }
+        return $group->id;
     }
 
     public function getGroups($board_id){
