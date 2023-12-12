@@ -1,14 +1,39 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Livewire;
 
-use Illuminate\Http\Request;
+use Livewire\Component;
 use App\Models\Task;
-use App\Http\Controllers\GroupController;
-use App\Models\Group;
 
-class TaskController extends Controller
+class TaskMovement extends Component
 {
+    public $boardId;
+    public $groupId;
+
+    public $task;
+    public $group;
+    public $board;
+    public function mount($boardId, $groupId, $board, $group, $task)
+    {
+        $this->boardId = $boardId;
+        $this->groupId = $groupId;
+        $this->board = $board;
+        $this->group = $group;
+        $this->task = $task;
+    }
+
+    public function clickTask($taskId)
+    {
+        $this->emit('taskClicked', $taskId);
+    }
+    public function render()
+    {
+        // Fetch tasks and groups as needed
+        $tasks = Task::where('group_id', $this->groupId)->orderBy('position')->get();
+
+        return view('livewire.task-movement', ['tasks' => $tasks]);
+    }
+
     private const LEFT = -1;
     private const RIGHT = 1;
     private const UP = -1;
@@ -153,7 +178,7 @@ class TaskController extends Controller
         Task::create(
             [
                 "title" => $new_task->title,
-                "slug" => fake()->slug(),
+                "slug" => fake()->slug(), 
                 "group_id" => $group_id,
                 "position" =>$position
             ]

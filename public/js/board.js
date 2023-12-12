@@ -18,11 +18,13 @@ $(document).ready(function(){
                 success: function(response) {
                     // Handle success response if needed
                     console.log("executed");
-                    location.reload();
+                    // location.reload();
+                    $('#tasks-container').html(response.updatedTasksHtml);
                 },
                 error: function(error) {
                     // Handle error if needed
                     console.error("error");
+                    
                 }
             }
         );
@@ -46,7 +48,8 @@ $(document).ready(function(){
                 success: function(response) {
                     // Handle success response if needed
                     console.log("executed");
-                    location.reload();
+                    //location.reload();
+                    $('#tasks-container').html(response.updatedTasksHtml);
                 },
                 error: function(error) {
                     // Handle error if needed
@@ -74,7 +77,8 @@ $(document).ready(function(){
                 success: function(response) {
                     // Handle success response if needed
                     console.log("executed");
-                    location.reload();
+                    //location.reload();
+                    $('#tasks-container').html(response.updatedTasksHtml);
                 },
                 error: function(error) {
                     // Handle error if needed
@@ -102,7 +106,8 @@ $(document).ready(function(){
                 success: function(response) {
                     // Handle success response if needed
                     console.log("executed");
-                    location.reload();
+                    // location.reload();
+                    $('#tasks-container').html(response.updatedTasksHtml);
                 },
                 error: function(error) {
                     // Handle error if needed
@@ -129,7 +134,8 @@ $(document).ready(function(){
                 success: function(response) {
                     // Handle success response if needed
                     console.log("executed");
-                    location.reload();
+                    // location.reload();
+                    $('#tasks-container').html(response.updatedTasksHtml);
                 },
                 error: function(error) {
                     // Handle error if needed
@@ -153,7 +159,8 @@ $(document).ready(function(){
                 success: function(response) {
                     // Handle success response if needed
                     console.log("executed");
-                    location.reload();
+                    // location.reload();
+                    $('#tasks-container').html(response.updatedTasksHtml);
                 },
                 error: function(error) {
                     // Handle error if needed

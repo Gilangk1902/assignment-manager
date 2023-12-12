@@ -27,55 +27,14 @@
                 </form>
             </div>
         </div>
-        <div class="card-body">
-            {{-- tasks --}}
+        
+        <div class="card-body" id="tasks-container">
             @foreach($group->tasks as $task)
-            <div class="card-header my-2 mx-0 px-0">
-                <div class="row ">
-                    <p class="col m-2 mx-3">{{ $task->position }} {{$task->title}}</p>
-                    {{-- edit button --}}
-                    <button type="button" class="btn btn-primary btn-sm col-2" data-bs-toggle="modal" data-bs-target="#edit-task-title-modal" 
-                        data-task-id="{{ $task->id }}" data-task-title="{{ $task->title }}">
-                        Edit
-                    </button>
-                    {{-- manage task buttons --}}
-                    <div class="col">
-                        <div class="row">
-                            {{-- <div class="col-3">
-                                @csrf
-                                <button id="left-button" type="submit" class="left-button btn btn-primary btn-sm" 
-                                        data-board-id="{{$board->id}}" data-group-id="{{$group->id}}" data-task-id="{{$task->id}}"> < </button>
-                            </div>
-                            <div class="col-3">
-                                @csrf
-                                <button id="delete-button" type="submit" class="delete-button btn btn-primary btn-sm"
-                                        data-board-id="{{$board->id}}" data-group-id="{{$group->id}}" data-task-id="{{$task->id}}"> X </button>
-                            </div>
-                            <div class="col-3">
-                                @csrf
-                                <button id="right-button" type="submit" class="right-button btn btn-primary btn-sm"
-                                        data-board-id="{{$board->id}}" data-group-id="{{$group->id}}" data-task-id="{{$task->id}}"> > </button>
-                            </div>
-                            <div class="col-3">
-                                @csrf
-                                <button id="up-button" type="submit" class="up-button btn btn-primary btn-sm"
-                                        data-board-id="{{$board->id}}" data-group-id="{{$group->id}}" data-task-id="{{$task->id}}"> ^ </button>
-                            </div>
-                            <div class="col-3">
-                                @csrf
-                                <button id="down-button" type="submit" class="down-button btn btn-primary btn-sm"
-                                        data-board-id="{{$board->id}}" data-group-id="{{$group->id}}" data-task-id="{{$task->id}}"> v </button>
-                            </div> --}}
-                            <div class="col">
-                                <button type="button" class="btn btn-primary btn" data-bs-toggle="modal" data-bs-target="#move-task-modal" 
-                                    data-task-id="{{ $task->id }}" data-task-title="{{ $task->title }}" data-board-id="{{ $board->id }}" data-group-id="{{ $group->id }}">
-                                    Move
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                <!-- Other task HTML elements... -->
+
+                @livewire('task-movement', ['boardId' => $board->id, 'groupId' => $group->id, 'board' => $board, 'group' => $group, 'task'=>$task], key($board->id.$group->id.$task->id))
+
+                <!-- Other task HTML elements... -->
             @endforeach
 
             {{-- Add New Task --}}
@@ -186,26 +145,28 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="move-task-form">
+                
+                <form id="move-task-form" wire:submit.prevent="moveTask">
                     @csrf
-                    <input type="hidden" name="board_id" id="move-board-id">
-                    <input type="hidden" name="group_id" id="move-group-id">
-                    <input type="hidden" name="task_id" id="move-task-id">
+                    <input type="hidden" name="board_id" id="move-board-id" wire:model="boardId">
+                    <input type="hidden" name="group_id" id="move-group-id" wire:model="groupId">
+                    <input type="hidden" name="task_id" id="move-task-id" wire:model="taskId">
+
 
                     <div class="col-3">
-                        <button id="left-button" type="button" class="left-button btn btn-primary btn-sm"> < </button>
+                        <button id="left-button" type="button" class="left-button btn btn-primary btn-sm" wire:click="SendLeft({{ $board->id }}, {{ $group->id }}, {{ $task->id }})"> < </button>
                     </div>
                     <div class="col-3">
-                        <button id="right-button" type="button" class="right-button btn btn-primary btn-sm"> > </button>
+                        <button id="right-button" type="button" class="right-button btn btn-primary btn-sm" wire:click="SendRight({{ $board->id }}, {{ $group->id }}, {{ $task->id }})"> > </button>
                     </div>
                     <div class="col-3">
-                        <button id="up-button" type="button" class="up-button btn btn-primary btn-sm"> ^ </button>
+                        <button id="up-button" type="button" class="up-button btn btn-primary btn-sm" wire:click="SendUp({{ $board->id }}, {{ $group->id }}, {{ $task->id }})"> ^ </button>
                     </div>
                     <div class="col-3">
-                        <button id="down-button" type="button" class="down-button btn btn-primary btn-sm"> v </button>
+                        <button id="down-button" type="button" class="down-button btn btn-primary btn-sm" wire:click="SendDown({{ $board->id }}, {{ $group->id }}, {{ $task->id }})"> v </button>
                     </div>
                     <div class="col-3">
-                        <button id="delete-button" type="button" class="delete-button btn btn-primary btn-sm"> delete</button>
+                        <button id="delete-button" type="button" class="delete-button btn btn-primary btn-sm" wire:click="DeleteTask"> delete</button>
                     </div>
                 </form>
             </div>
@@ -215,5 +176,7 @@
         </div>
     </div>
 </div>
+@livewireStyles
+@livewireScripts
 
 @endsection

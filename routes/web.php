@@ -7,6 +7,8 @@ use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Models\Board;
+use App\Http\Livewire\TaskMovement;
+use App\Http\Livewire;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,6 +19,7 @@ use App\Models\Board;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 
 Route::get('/boards/{user_id}',
     [BoardController::class, 'FindUserBoards']
@@ -47,12 +50,13 @@ Route::get('/logout',  [UserController::class, 'Logout'])->name('logout');
 Route::post('/register', [UserController::class, 'Register'])->name('register');
 
 Route::post('/send-right/{board_id}/{group_id}/{task_id}', [TaskController::class,'SendRight'])->name('send-right');
+// Route::post('/send-right/{board_id}/{group_id}/{task_id}', []);
 
 Route::post('/send-left/{board_id}/{group_id}/{task_id}', [TaskController::class,'SendLeft'])->name('send-left');
 
-Route::post('/send-up/{board_id}/{group_id}/{task_id}', [TaskController::class,'SendUp'])->name('send-up');
+// Route::post('/send-up/{board_id}/{group_id}/{task_id}', [TaskController::class,'SendUp'])->name('send-up');
 
-Route::post('/send-down/{board_id}/{group_id}/{task_id}', [TaskController::class,'SendDown'])->name('send-down');
+// Route::post('/send-down/{board_id}/{group_id}/{task_id}', [TaskController::class,'SendDown'])->name('send-down');
 
 Route::post('/delete-task/{board_id}/{group_id}/{task_id}', [TaskController::class,'Delete'])->name('delete-task');
 
