@@ -2,6 +2,7 @@
 
 @section('container')
 <script src="{{ asset('js/board.js') }}"></script>
+<link rel="stylesheet" href="{{ asset('css/modal.css') }}">
 
 <h1>
     {{ $board->title }}
@@ -40,7 +41,7 @@
                     {{-- manage task buttons --}}
                     <div class="col">
                         <div class="row">
-                            <div class="col-3">
+                            {{-- <div class="col-3">
                                 @csrf
                                 <button id="left-button" type="submit" class="left-button btn btn-primary btn-sm" 
                                         data-board-id="{{$board->id}}" data-group-id="{{$group->id}}" data-task-id="{{$task->id}}"> < </button>
@@ -64,6 +65,12 @@
                                 @csrf
                                 <button id="down-button" type="submit" class="down-button btn btn-primary btn-sm"
                                         data-board-id="{{$board->id}}" data-group-id="{{$group->id}}" data-task-id="{{$task->id}}"> v </button>
+                            </div> --}}
+                            <div class="col">
+                                <button type="button" class="btn btn-primary btn" data-bs-toggle="modal" data-bs-target="#move-task-modal" 
+                                    data-task-id="{{ $task->id }}" data-task-title="{{ $task->title }}" data-board-id="{{ $board->id }}" data-group-id="{{ $group->id }}">
+                                    Move
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -167,6 +174,45 @@
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
+    </div>
+</div>
+
+<!-- Move Task Modal -->
+<div class="modal fade move-task-modal custom" id="move-task-modal" tabindex="-1" role="dialog" aria-labelledby="move-task-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="edit-task-title-modal-label">Move Task</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="move-task-form">
+                    @csrf
+                    <input type="hidden" name="board_id" id="move-board-id">
+                    <input type="hidden" name="group_id" id="move-group-id">
+                    <input type="hidden" name="task_id" id="move-task-id">
+
+                    <div class="col-3">
+                        <button id="left-button" type="button" class="left-button btn btn-primary btn-sm"> < </button>
+                    </div>
+                    <div class="col-3">
+                        <button id="right-button" type="button" class="right-button btn btn-primary btn-sm"> > </button>
+                    </div>
+                    <div class="col-3">
+                        <button id="up-button" type="button" class="up-button btn btn-primary btn-sm"> ^ </button>
+                    </div>
+                    <div class="col-3">
+                        <button id="down-button" type="button" class="down-button btn btn-primary btn-sm"> v </button>
+                    </div>
+                    <div class="col-3">
+                        <button id="delete-button" type="button" class="delete-button btn btn-primary btn-sm"> delete</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
 </div>
 

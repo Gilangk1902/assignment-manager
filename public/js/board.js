@@ -4,10 +4,9 @@ $(document).ready(function(){
     
         console.log("right button clicked");  // Add this line
     
-        var right_button = $(this);
-        var board_id = right_button.data('board-id');
-        var task_id = right_button.data('task-id');
-        var group_id = right_button.data('group-id');
+        var board_id = $('#move-board-id').val();
+        var task_id = $('#move-task-id').val();
+        var group_id = $('#move-group-id').val();
     
         $.ajax(
             {
@@ -33,10 +32,9 @@ $(document).ready(function(){
     
         console.log("left button clicked");  // Add this line
     
-        var left_button = $(this);
-        var board_id = left_button.data('board-id');
-        var task_id = left_button.data('task-id');
-        var group_id = left_button.data('group-id');
+        var board_id = $('#move-board-id').val();
+        var task_id = $('#move-task-id').val();
+        var group_id = $('#move-group-id').val();
     
         $.ajax(
             {
@@ -62,10 +60,9 @@ $(document).ready(function(){
     
         console.log("Up button clicked");  // Add this line
     
-        var up_button = $(this);
-        var board_id = up_button.data('board-id');
-        var task_id = up_button.data('task-id');
-        var group_id = up_button.data('group-id');
+        var board_id = $('#move-board-id').val();
+        var task_id = $('#move-task-id').val();
+        var group_id = $('#move-group-id').val();
     
         $.ajax(
             {
@@ -91,10 +88,9 @@ $(document).ready(function(){
     
         console.log("down button clicked");  // Add this line
     
-        var down_button = $(this);
-        var board_id = down_button.data('board-id');
-        var task_id = down_button.data('task-id');
-        var group_id = down_button.data('group-id');
+        var board_id = $('#move-board-id').val();
+        var task_id = $('#move-task-id').val();
+        var group_id = $('#move-group-id').val();
     
         $.ajax(
             {
@@ -119,10 +115,9 @@ $(document).ready(function(){
     $(document).on('click', '.delete-button', function(event) {
         event.preventDefault();
     
-        var delete_button = $(this);
-        var board_id = delete_button.data('board-id');
-        var task_id = delete_button.data('task-id');
-        var group_id = delete_button.data('group-id');
+        var board_id = $('#move-board-id').val();
+        var task_id = $('#move-task-id').val();
+        var group_id = $('#move-group-id').val();
     
         $.ajax(
             {
@@ -231,5 +226,17 @@ $(document).ready(function(){
 
         var updateTaskTitleUrl = "/update-task/" + task_id;
         $('#edit-task-form').attr('action', updateTaskTitleUrl);
+    });
+
+    $('#move-task-modal').on('show.bs.modal', event=>{
+        var button = $(event.relatedTarget);
+        var board_id = button.data('board-id');
+        var group_id = button.data('group-id');
+        var task_id = button.data('task-id');
+
+        $('#move-task-modal').find('#task-title-id').val(task_id);
+        $('#move-task-modal').find('#move-task-id').val(task_id);
+        $('#move-task-modal').find('#move-board-id').val(board_id);
+        $('#move-task-modal').find('#move-group-id').val(group_id);
     });
 });
