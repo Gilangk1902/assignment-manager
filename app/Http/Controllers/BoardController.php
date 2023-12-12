@@ -14,12 +14,14 @@ class BoardController extends Controller
 
     public function Show(Board $board)
     {
-        return view('/board',
-            [
-                "title" => "a board",
-                "board" => $board
-            ]
-        );
+        $board = Board::with(['groups' => function ($query) {
+                $query->orderBy('position');
+            }, 
+            'groups.tasks' => function ($query) {
+                $query->orderBy('position');
+            }])->findOrFail($board->id);
+
+        return view('board', compact('board'));
     }
 
     public function FindUserBoards($user_id){

@@ -1,6 +1,8 @@
 @extends('layouts.main')
 
 @section('container')
+<script src="{{ asset('js/board.js') }}"></script>
+
 <h1>
     {{ $board->title }}
 </h1>
@@ -29,7 +31,7 @@
             @foreach($group->tasks as $task)
             <div class="card-header my-2 mx-0 px-0">
                 <div class="row ">
-                    <p class="col m-2 mx-3">{{$task->title}}</p>
+                    <p class="col m-2 mx-3">{{ $task->position }} {{$task->title}}</p>
                     {{-- edit button --}}
                     <button type="button" class="btn btn-primary btn-sm col-2" data-bs-toggle="modal" data-bs-target="#edit-task-title-modal" 
                         data-task-id="{{ $task->id }}" data-task-title="{{ $task->title }}">
@@ -52,6 +54,16 @@
                                 @csrf
                                 <button id="right-button" type="submit" class="right-button btn btn-primary btn-sm"
                                         data-board-id="{{$board->id}}" data-group-id="{{$group->id}}" data-task-id="{{$task->id}}"> > </button>
+                            </div>
+                            <div class="col-3">
+                                @csrf
+                                <button id="up-button" type="submit" class="up-button btn btn-primary btn-sm"
+                                        data-board-id="{{$board->id}}" data-group-id="{{$group->id}}" data-task-id="{{$task->id}}"> ^ </button>
+                            </div>
+                            <div class="col-3">
+                                @csrf
+                                <button id="down-button" type="submit" class="down-button btn btn-primary btn-sm"
+                                        data-board-id="{{$board->id}}" data-group-id="{{$group->id}}" data-task-id="{{$task->id}}"> v </button>
                             </div>
                         </div>
                     </div>
@@ -157,7 +169,5 @@
       </div>
     </div>
 </div>
-
-<script src="{{ asset('js/board.js') }}"></script>
 
 @endsection

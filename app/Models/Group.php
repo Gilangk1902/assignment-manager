@@ -18,7 +18,8 @@ class Group extends Model
     protected $fillable = [
         'board_id',  
         'title',
-        'slug'
+        'slug',
+        'position'
     ];
 
     public function board(){
@@ -26,6 +27,6 @@ class Group extends Model
     }
 
     public function tasks(){
-        return $this->hasMany(Task::class);
+        return $this->hasMany(Task::class)->orderBy('position');
     }
 }

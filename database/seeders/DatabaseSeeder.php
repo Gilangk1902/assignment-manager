@@ -28,8 +28,8 @@ class DatabaseSeeder extends Seeder
 
         User::factory(10)->create();
 
-        Board::factory(5)->create();    
-        Group::factory(3)->create();
-        Task::factory(3)->create();
+        // Board::factory(5)->create();    
+        // Group::factory(3)->create();
+        // Task::factory(3)->create();
     }
 }

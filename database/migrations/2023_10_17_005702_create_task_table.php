@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('group_id')->onDelete('cascade');
             $table->string('title');
+            $table->integer('position')->default(0);
             $table->string('slug')->unique();
             $table->timestamps();
         });

@@ -13,7 +13,8 @@ class Task extends Model
     protected $fillable = [
         'group_id',  
         'title',
-        'slug'
+        'slug',
+        'position'
     ];
 
     public function group(){
