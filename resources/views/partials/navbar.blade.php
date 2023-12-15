@@ -1,16 +1,16 @@
-<nav class="navbar navbar-expand-lg bg-dark">
+<nav class="navbar navbar-expand-lg bg-light border-bottom ">
     <div class="container py-1">
-        <a class="navbar-brand text-light" href="/">MyTasks</a>
+        <a class="navbar-brand text-primary fw-bold" href="/"><i class="bi bi-trello"></i>MyTasks</a>
         
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             @auth
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active text-light" href="/">HOME</a>
+                    <a class="nav-link active text-primary" href="/">HOME</a>
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle text-primary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         BOARDS
                     </a>
                     
@@ -39,12 +39,12 @@
         
             <div class="d-flex ms-auto"> <!-- Use ms-auto to push the content to the right -->
                 @guest
-                    <a href="/login" class="btn btn-primary me-2">Login</a>
-                    <a href="/register" class="btn btn-primary me-2">Register</a>
+                    <a href="/login" class="btn btn-primary rounded-pill px-4 py-2">Login</a>
+                    
                 @else
                 <form method="GET" action="{{ route('logout') }}">
                     @csrf
-                    <a href="{{ route('logout') }}" class="btn btn-primary">Logout</a>
+                    <a href="{{ route('logout') }}" class="btn btn-primary rounded-pill px-4 py-2">Logout</a>
                 </form>
                 @endguest
             </div>
