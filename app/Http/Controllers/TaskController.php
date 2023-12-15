@@ -14,6 +14,15 @@ class TaskController extends Controller
     private const UP = -1;
     private const DOWN = 1;
 
+    public function SendToGroup($task_id, $group_id){
+        $task = Task::where('id', $task_id)->first();
+        if($task->group_id != $group_id){
+            $this->InsertTask($task_id, $group_id);
+            $this->DeleteTask($task->group_id, $task_id);
+            $this->ReorderTasks($task->group_id);
+        }
+    }
+
     public function SendUp($board_id, $group_id, $task_id) {
         $current_task_position = $this->getTaskPosition($group_id, $task_id);
     

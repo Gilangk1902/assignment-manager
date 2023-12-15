@@ -72,6 +72,7 @@ Route::post('/update-group/{group_id}', [GroupController::class, 'UpdateGroupTit
 
 Route::post('/update-task/{task_id}', [TaskController::class, 'UpdateTaskTitle'])->name('update-task-title');
 
+Route::post('/move-to-group/{task_id}/{group_id}', [TaskController::class, 'SendToGroup'])->name('move-to-group');
 //default user for testing
 Route::get('/', 
     function(){

@@ -7,8 +7,14 @@
 <h1>
     {{ $board->title }}
 </h1>
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit-board-title-modal" data-board-id="{{ $board->id }}" data-board-title="{{ $board->title }}">
-    edit
+<h4>
+    {{ $board->description }}
+</h4>
+<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#edit-board-title-modal" 
+        data-board-id="{{ $board->id }}" data-board-title="{{ $board->title }}" data-board-description="{{ $board->description }}">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+        <path d="M11.293 0.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-10 10a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 0-1.414l10-10a1 1 0 0 1 1.414 0zM12 2l1.297 1.297-1 1L11 3l1-1zM1 8l1.297 1.297-1 1L0 9l1-1zm10-6l1.297 1.297-1 1L10 3l1-1zM2.414 12l1.297 1.297-1 1L1.414 13l1-1z"/>
+    </svg>
 </button>
 
 <div class="row">
@@ -17,13 +23,15 @@
     <div class="card me-2" style="width: 20rem;">
         <div class="row">
             <p class="card-title mt-3 mx-2 col fs-4">{{$group->title}}</p>
-            <button type="button" class="btn btn-primary mt-3 mx-2 col-2" data-bs-toggle="modal" data-bs-target="#edit-group-title-modal" data-group-id="{{ $group->id }}" data-group-title="{{ $group->title }}">
-                Edit
+            <button type="button" class="btn btn-outline-primary mt-3 mx-2 col-2" data-bs-toggle="modal" data-bs-target="#edit-group-title-modal" data-group-id="{{ $group->id }}" data-group-title="{{ $group->title }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                    <path d="M11.293 0.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-10 10a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 0-1.414l10-10a1 1 0 0 1 1.414 0zM12 2l1.297 1.297-1 1L11 3l1-1zM1 8l1.297 1.297-1 1L0 9l1-1zm10-6l1.297 1.297-1 1L10 3l1-1zM2.414 12l1.297 1.297-1 1L1.414 13l1-1z"/>
+                </svg>
             </button>
             <div class="mt-3 mx-2 col-2">
                 <form method="POST" action="/delete-group/{{$board->id}}/{{$group->id}}">
                     @csrf
-                    <button id="refresh-page" type="submit" class="btn btn-primary"> X </button>
+                    <button id="refresh-page" type="submit" class="btn btn-outline-primary"> X </button>
                 </form>
             </div>
         </div>
@@ -34,40 +42,17 @@
                 <div class="row ">
                     <p class="col m-2 mx-3">{{ $task->position }} {{$task->title}}</p>
                     {{-- edit button --}}
-                    <button type="button" class="btn btn-primary btn-sm col-2" data-bs-toggle="modal" data-bs-target="#edit-task-title-modal" 
+                    <button type="button" class="btn btn-outline-primary btn-sm col-2 p-0" data-bs-toggle="modal" data-bs-target="#edit-task-title-modal" 
                         data-task-id="{{ $task->id }}" data-task-title="{{ $task->title }}">
-                        Edit
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                            <path d="M11.293 0.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-10 10a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 0-1.414l10-10a1 1 0 0 1 1.414 0zM12 2l1.297 1.297-1 1L11 3l1-1zM1 8l1.297 1.297-1 1L0 9l1-1zm10-6l1.297 1.297-1 1L10 3l1-1zM2.414 12l1.297 1.297-1 1L1.414 13l1-1z"/>
+                        </svg>
                     </button>
                     {{-- manage task buttons --}}
                     <div class="col">
                         <div class="row">
-                            {{-- <div class="col-3">
-                                @csrf
-                                <button id="left-button" type="submit" class="left-button btn btn-primary btn-sm" 
-                                        data-board-id="{{$board->id}}" data-group-id="{{$group->id}}" data-task-id="{{$task->id}}"> < </button>
-                            </div>
-                            <div class="col-3">
-                                @csrf
-                                <button id="delete-button" type="submit" class="delete-button btn btn-primary btn-sm"
-                                        data-board-id="{{$board->id}}" data-group-id="{{$group->id}}" data-task-id="{{$task->id}}"> X </button>
-                            </div>
-                            <div class="col-3">
-                                @csrf
-                                <button id="right-button" type="submit" class="right-button btn btn-primary btn-sm"
-                                        data-board-id="{{$board->id}}" data-group-id="{{$group->id}}" data-task-id="{{$task->id}}"> > </button>
-                            </div>
-                            <div class="col-3">
-                                @csrf
-                                <button id="up-button" type="submit" class="up-button btn btn-primary btn-sm"
-                                        data-board-id="{{$board->id}}" data-group-id="{{$group->id}}" data-task-id="{{$task->id}}"> ^ </button>
-                            </div>
-                            <div class="col-3">
-                                @csrf
-                                <button id="down-button" type="submit" class="down-button btn btn-primary btn-sm"
-                                        data-board-id="{{$board->id}}" data-group-id="{{$group->id}}" data-task-id="{{$task->id}}"> v </button>
-                            </div> --}}
                             <div class="col">
-                                <button type="button" class="btn btn-primary btn" data-bs-toggle="modal" data-bs-target="#move-task-modal" 
+                                <button type="button" class="btn btn-outline-primary btn" data-bs-toggle="modal" data-bs-target="#move-task-modal" 
                                     data-task-id="{{ $task->id }}" data-task-title="{{ $task->title }}" data-board-id="{{ $board->id }}" data-group-id="{{ $group->id }}">
                                     Move
                                 </button>
@@ -81,7 +66,7 @@
             {{-- Add New Task --}}
             <div>
                 <div class=""> 
-                    <button id="add-new-task-button" type="submit" class="add-new-task-button btn btn-primary btn-sm"
+                    <button id="add-new-task-button" type="submit" class="add-new-task-button btn btn-outline-primary btn-sm"
                     data-board-id="{{ $board->id }}" data-group-id="{{ $group->id }}">+ Add New Task</button>
                 </div>
             </div>
@@ -92,7 +77,7 @@
         {{-- Add New Group --}}
         <div class="card-header my-2"> 
             @csrf
-            <button id="add-new-group-button" type="submit" class="add-new-group-button btn btn-primary btn-sm"
+            <button id="add-new-group-button" type="submit" class="add-new-group-button btn btn-outline-primary btn-sm"
                 data-board-id="{{ $board->id }}">+ Add New Group</button>
         </div>
     </div>
@@ -113,13 +98,11 @@
                     <div class="mb-3">
                         <label for="board-input-title" class="form-label">Title</label>
                         <input type="text" class="form-control" id="board-input-title" name="board-input-title">
+                        <label for="board-input-description">Description</label>
+                        <input type="text" class="form-control" id="board-input-description" name="board-input-description">
                     </div>
                     <button type="submit" class="btn btn-primary" id="update-board-button" action="">Submit</button>
                 </form>
-            </div>
-        {{-- Footer --}}
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
       </div>
     </div>
@@ -144,9 +127,6 @@
                 <button type="submit" class="btn btn-primary" id="update-group-button" action="">Submit</button>
               </form>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
       </div>
     </div>
 </div>
@@ -170,9 +150,6 @@
                 <button type="submit" class="btn btn-primary" id="update-task-button">Submit</button>
               </form>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
       </div>
     </div>
 </div>
@@ -192,25 +169,51 @@
                     <input type="hidden" name="group_id" id="move-group-id">
                     <input type="hidden" name="task_id" id="move-task-id">
 
-                    <div class="col-3">
-                        <button id="left-button" type="button" class="left-button btn btn-primary btn-sm"> < </button>
+                    <div class="keyboard-buttons">
+                        <div class="keyboard-row">
+                            <div class="keyboard-button">
+                                <button id="up-button" type="button" class="up-button btn btn-primary btn-sm">
+                                    &#x2191; <!-- Unicode arrow up character -->
+                                </button>
+                            </div>
+                        </div>
+                        <div class="keyboard-row">
+                            <div class="keyboard-button">
+                                <button id="left-button" type="button" class="left-button btn btn-primary btn-sm">
+                                    &#x2190; <!-- Unicode arrow left character -->
+                                </button>
+                                </div>
+                            <div class="keyboard-button">
+                                <button id="down-button" type="button" class="down-button btn btn-primary btn-sm">
+                                    &#x2193; <!-- Unicode arrow down character -->
+                                </button>
+                            </div>
+                            <div class="keyboard-button">
+                                <button id="right-button" type="button" class="right-button btn btn-primary btn-sm">
+                                    &#x2192; <!-- Unicode arrow right character -->
+                                </button>
+                            </div>
+                        </div>                  
                     </div>
-                    <div class="col-3">
-                        <button id="right-button" type="button" class="right-button btn btn-primary btn-sm"> > </button>
+
+                    <div class="col mt-4">
+                        <label for="move-to" class="form-label">Move to another group</label>
+                        <select class="form-select" name="groups" id="move-to">
+                            <option value="" selected>Choose</option>
+                            @foreach ($board->groups as $group)
+                                <option value="{{ $group->id }}">{{ $group->title }}</option>
+                            @endforeach
+                        </select>
                     </div>
-                    <div class="col-3">
-                        <button id="up-button" type="button" class="up-button btn btn-primary btn-sm"> ^ </button>
-                    </div>
-                    <div class="col-3">
-                        <button id="down-button" type="button" class="down-button btn btn-primary btn-sm"> v </button>
-                    </div>
-                    <div class="col-3">
-                        <button id="delete-button" type="button" class="delete-button btn btn-primary btn-sm"> delete</button>
-                    </div>
+
+                    <div class="col d-flex justify-content-end mt-2">
+                        <div class="ms-2">
+                            <button id="delete-button" type="button" class="delete-button btn btn-primary btn-sm btn-danger">
+                                Delete
+                            </button>
+                        </div>
+                    </div>  
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

@@ -1,7 +1,27 @@
 .modal.custom .modal-dialog {
     width: 20%;
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    margin: 0;
+    margin: auto;
+}
+
+@media (max-width: 575.98px) {
+    .modal.custom .modal-dialog {
+        width: 90%;
+    }
+}
+
+.keyboard-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.keyboard-row {
+    display: flex;
+    gap: 10px;
+}
+
+.keyboard-button {
+    flex: 1;
+    text-align: center;
 }

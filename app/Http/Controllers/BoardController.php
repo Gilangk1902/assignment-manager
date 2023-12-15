@@ -61,6 +61,7 @@ class BoardController extends Controller
         $board = Board::find($board_id);
 
         $board->title = $request->input('board-input-title');
+        $board->description = $request->input('board-input-description');
 
         $board->save();
 
