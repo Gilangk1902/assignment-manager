@@ -1,4 +1,28 @@
 $(document).ready(function(){
+    $(document).on('change', '#move-to', function () {
+        console.log("move-to clicked");
+
+        var new_group_id = $(this).val();
+        var task_id = $('#move-task-id').val();
+
+        // Send an Ajax request to update the task
+        $.ajax({
+            type: 'POST',
+            url: '/move-to-group/' + task_id + '/' + new_group_id,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (data) {
+                // Update the UI or perform additional actions
+                console.log('Task moved successfully');
+                location.reload();
+            },
+            error: function (error) {
+                console.error('Error moving task:', error);
+            }
+        });
+    });
+
     $(document).on('click', '.right-button', function(event) {
         event.preventDefault();
     
@@ -196,9 +220,11 @@ $(document).ready(function(){
         var button = $(event.relatedTarget);
         var board_id = button.data('board-id');
         var board_title = button.data('board-title');
+        var board_description = button.data('board-description');
 
         $(this).find('#board-input-title').val(board_title);
         $(this).find('#board-title-id').val(board_id);
+        $(this).find('#board-input-description').val(board_description);
 
         var updateBoardTitleUrl = "/update-board/" + board_id;
         $('#edit-board-form').attr('action', updateBoardTitleUrl);
@@ -233,6 +259,11 @@ $(document).ready(function(){
         var board_id = button.data('board-id');
         var group_id = button.data('group-id');
         var task_id = button.data('task-id');
+        var task_title = button.data('task-title')
+
+        var newTitle = "Move " + task_title;
+
+        $('#move-task-modal').find('#edit-task-title-modal-label').text(newTitle);
 
         $('#move-task-modal').find('#task-title-id').val(task_id);
         $('#move-task-modal').find('#move-task-id').val(task_id);
