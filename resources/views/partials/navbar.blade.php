@@ -1,13 +1,17 @@
 <nav class="navbar navbar-expand-lg bg-dark">
-    <div class="container">
-        <a class="navbar-brand text-light" href="/">Assigment Manager</a>
+    <div class="container py-1">
+        <a class="navbar-brand text-light" href="/">MyTasks</a>
         
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             @auth
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active text-light" href="/">HOME</a>
+                </li>
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Boards
+                        BOARDS
                     </a>
                     
                     <ul class="dropdown-menu">
@@ -21,7 +25,7 @@
                     </ul>
                 </li>
                 
-                <li class="nav-item dropdown">
+                {{-- <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Starred
                     </a>
@@ -29,7 +33,7 @@
                         <li><a class="dropdown-item" href="#">Action</a></li>
                         <li><a class="dropdown-item" href="#">Another action</a></li>
                     </ul>
-                </li>
+                </li> --}}
             </ul>
             @endauth
         
