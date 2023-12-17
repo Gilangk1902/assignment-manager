@@ -23,6 +23,62 @@ $(document).ready(function(){
         });
     });
 
+    $(document).on('click', '.right-button-group', function(event) {
+        event.preventDefault();
+    
+        console.log("right button clicked");  // Add this line
+    
+        var board_id = $('#move-board-id-group').val();
+        var group_id = $('#move-group-id-group').val();
+    
+        $.ajax(
+            {
+                url: "/group-send-right/" + board_id + "/" + group_id,
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    // Handle success response if needed
+                    console.log("executed");
+                    location.reload();
+                },
+                error: function(error) {
+                    // Handle error if needed
+                    console.error("error");
+                }
+            }
+        );
+    });
+
+    $(document).on('click', '.left-button-group', function(event) {
+        event.preventDefault();
+    
+        console.log("right button clicked");  // Add this line
+    
+        var board_id = $('#move-board-id-group').val();
+        var group_id = $('#move-group-id-group').val();
+    
+        $.ajax(
+            {
+                url: "/group-send-left/" + board_id + "/" + group_id,
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    // Handle success response if needed
+                    console.log("executed");
+                    location.reload();
+                },
+                error: function(error) {
+                    // Handle error if needed
+                    console.error("error");
+                }
+            }
+        );
+    });
+
     $(document).on('click', '.right-button', function(event) {
         event.preventDefault();
     
@@ -269,5 +325,19 @@ $(document).ready(function(){
         $('#move-task-modal').find('#move-task-id').val(task_id);
         $('#move-task-modal').find('#move-board-id').val(board_id);
         $('#move-task-modal').find('#move-group-id').val(group_id);
+    });
+
+    $('#move-group-modal').on('show.bs.modal',  event =>{
+        var button = $(event.relatedTarget);
+        var board_id = button.data('board-id');
+        var group_id = button.data('group-id');
+        var group_title = button.data('group-title');
+
+        var new_title = "Move " + group_title;
+
+        $('#move-group-modal').find('#move-group-title-modal-label').text(new_title);
+
+        $('#move-group-modal').find('#move-board-id-group').val(board_id);
+        $('#move-group-modal').find('#move-group-id-group').val(group_id);
     });
 });

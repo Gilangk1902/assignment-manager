@@ -50,6 +50,10 @@ Route::post('/send-right/{board_id}/{group_id}/{task_id}', [TaskController::clas
 
 Route::post('/send-left/{board_id}/{group_id}/{task_id}', [TaskController::class,'SendLeft'])->name('send-left');
 
+Route::post('/group-send-right/{board_id}/{group_id}', [GroupController::class,'SendRight'])->name('send-right-group');
+
+Route::post('/group-send-left/{board_id}/{group_id}', [GroupController::class,'SendLeft'])->name('send-left-group');
+
 Route::post('/send-up/{board_id}/{group_id}/{task_id}', [TaskController::class,'SendUp'])->name('send-up');
 
 Route::post('/send-down/{board_id}/{group_id}/{task_id}', [TaskController::class,'SendDown'])->name('send-down');

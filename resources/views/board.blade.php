@@ -20,19 +20,18 @@
 <div class="row">
     {{-- groups --}}
     @foreach($board->groups as $group)
-    <div class="card me-2" style="width: 20rem;">
+    <div class="card me-2" style="width: 30rem;">
         <div class="row">
-            <p class="card-title mt-3 mx-2 col fs-4">{{$group->title}}</p>
+            <p class="card-title mt-3 mx-0 col fs-4">{{ $group->position }} {{$group->title}}</p>
             <button type="button" class="btn btn-outline-primary mt-3 mx-2 col-2" data-bs-toggle="modal" data-bs-target="#edit-group-title-modal" data-group-id="{{ $group->id }}" data-group-title="{{ $group->title }}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
                     <path d="M11.293 0.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-10 10a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 0-1.414l10-10a1 1 0 0 1 1.414 0zM12 2l1.297 1.297-1 1L11 3l1-1zM1 8l1.297 1.297-1 1L0 9l1-1zm10-6l1.297 1.297-1 1L10 3l1-1zM2.414 12l1.297 1.297-1 1L1.414 13l1-1z"/>
                 </svg>
             </button>
             <div class="mt-3 mx-2 col-2">
-                <form method="POST" action="/delete-group/{{$board->id}}/{{$group->id}}">
-                    @csrf
-                    <button id="refresh-page" type="submit" class="btn btn-outline-primary"> X </button>
-                </form>
+                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#move-group-modal"
+                    data-board-id="{{ $board->id }}" data-group-title="{{ $group->title }}" data-group-id="{{ $group->id }}">
+                    Move </button>
             </div>
         </div>
         <div class="card-body">
@@ -204,6 +203,48 @@
                                 <option value="{{ $group->id }}">{{ $group->title }}</option>
                             @endforeach
                         </select>
+                    </div>
+
+                    <div class="col d-flex justify-content-end mt-2">
+                        <div class="ms-2">
+                            <button id="delete-button" type="button" class="delete-button btn btn-primary btn-sm btn-danger">
+                                Delete
+                            </button>
+                        </div>
+                    </div>  
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Move group Modal -->
+<div class="modal fade move-group-modal custom" id="move-group-modal" tabindex="-1" role="dialog" aria-labelledby="move-group-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="move-group-title-modal-label">Move Group</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="move-task-form">
+                    @csrf
+                    <input type="hidden" name="board_id" id="move-board-id-group">
+                    <input type="hidden" name="group_id" id="move-group-id-group">
+
+                    <div class="keyboard-buttons">
+                        <div class="keyboard-row">
+                            <div class="keyboard-button">
+                                <button id="left-button-group" type="button" class="left-button-group btn btn-primary btn-sm">
+                                    &#x2190; <!-- Unicode arrow left character -->
+                                </button>
+                                </div>
+                            <div class="keyboard-button">
+                                <button id="right-button-group" type="button" class="right-button-group btn btn-primary btn-sm">
+                                    &#x2192; <!-- Unicode arrow right character -->
+                                </button>
+                            </div>
+                        </div>                  
                     </div>
 
                     <div class="col d-flex justify-content-end mt-2">

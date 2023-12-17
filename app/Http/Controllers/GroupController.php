@@ -11,6 +11,43 @@ class GroupController extends Controller
     public function index(){
         
     }
+    private const LEFT = -1;
+    private const RIGHT = 1;
+
+    public function SendRight($board_id, $group_id){
+        $position  = $this->getPositionOfGroup($board_id, $group_id);
+        if($position >= 0){
+            $group = Group::where('id', $group_id)->first();
+            $new_group_position = $position + self::RIGHT;
+
+            if($group){
+                $this->SwitchPosition($new_group_position, $position, $board_id);
+                $group->update(['position' => $new_group_position]);
+            }
+        }
+        return back();
+    }
+
+    public function SendLeft($board_id, $group_id){
+        $position  = $this->getPositionOfGroup($board_id, $group_id);
+        if($position > 0){
+            $group = Group::where('id', $group_id)->first();
+            $new_group_position = $position + self::LEFT;
+
+            if($group){
+                $this->SwitchPosition($new_group_position, $position, $board_id);
+                $group->update(['position' => $new_group_position]);
+            }
+        }
+        return back();
+    }
+
+    private function SwitchPosition($target_position, $current_position, $board_id){
+        $group = Group::where('board_id', $board_id)->where('position', $target_position);
+        if($group){
+            $group->update(['position' => $current_position]);
+        }
+    }
 
     public function AddNew($board_id){
         $last_group = Group::where('board_id', $board_id)->orderBy('position', 'desc')->first();
