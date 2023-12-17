@@ -9,22 +9,16 @@
                     <a class="nav-link active text-primary" href="/">HOME</a>
                 </li>
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-primary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        BOARDS
-                    </a>
-                    <ul class="dropdown-menu">
-                        @forelse (Auth::user()->boards as $board)
-                            <li><a href="/board/{{ $board->slug }}" class="dropdown-item text-decoration-none">{{ $board->title }}</a></li>
-                        @empty
-                            <li><a class="dropdown-item text-decoration-none" href="#">No boards available</a></li>
-                        @endforelse
-                    </ul>
+                @php
+                    $userId = Auth::user()->id
+                @endphp
+                <li class="nav-item">
+                    <a class="nav-link active text-primary" href="/boards/{{ $userId }}">BOARDS</a>
                 </li>
                 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-primary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        STARRED BOARDS
+                        STARRED
                     </a>
                     <ul class="dropdown-menu">
                         @php
@@ -38,16 +32,6 @@
                         @endforelse
                     </ul>
                 </li>
-                
-                {{-- <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Starred
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                    </ul>
-                </li> --}}
             </ul>
             @endauth
         
