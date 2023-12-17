@@ -17,7 +17,8 @@ class Board extends Model
         'user_id', 
         'title', 
         'description',
-        'slug'
+        'slug',
+        'starred'
     ];
 
     public function user(){

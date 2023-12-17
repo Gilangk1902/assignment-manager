@@ -7,6 +7,18 @@
 
 <h1>
     {{ $board->title }}
+
+        @if($board->starred)
+        <button type="button" class="btn btn-link" id="unstar-button"
+        data-board-id="{{ $board->id }}">
+            <i class="bi bi-star-fill"></i>
+        </button>   
+        @else
+        <button type="button" class="btn btn-link" id="star-button"
+        data-board-id="{{ $board->id }}">
+            <i class="bi bi-star"></i>
+        </button>   
+        @endif
 </h1>
 <h5>
     {{ $board->description }}

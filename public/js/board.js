@@ -267,6 +267,59 @@ $(document).ready(function(){
             }
         );
     });
+
+    $(document).on('click', '#star-button', function(event) {
+        event.preventDefault();
+
+        console.log("star button clicked");  // Add this line
+        var board_id = $(this).data('board-id');
+    
+        $.ajax(
+            {
+                url: "/star-board/" + board_id,
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    // Handle success response if needed
+                    console.log("executed");
+                    location.reload();
+                },
+                error: function(error) {
+                    // Handle error if needed
+                    console.error("error");
+                }
+            }
+        );
+    });
+
+    $(document).on('click', '#unstar-button', function(event) {
+        event.preventDefault();
+
+        console.log("Unstar button clicked");  // Add this line
+
+        var board_id = $(this).data('board-id');
+    
+        $.ajax(
+            {
+                url: "/star-board/" + board_id,
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    // Handle success response if needed
+                    console.log("executed");
+                    location.reload();
+                },
+                error: function(error) {
+                    // Handle error if needed
+                    console.error("error");
+                }
+            }
+        );
+    });
 });
 
 document.addEventListener('DOMContentLoaded', function () {

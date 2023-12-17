@@ -12,6 +12,16 @@ class BoardController extends Controller
         return view('/', Board::all());
     }
 
+    public function Star($board_id){
+        $board = Board::findOrFail($board_id);
+
+        // Toggle the 'starred' attribute
+        $board->starred = !$board->starred;
+
+        // Save the changes
+        $board->save();
+    }
+
     public function Show(Board $board)
     {
         $board = Board::with(['groups' => function ($query) {
@@ -40,21 +50,24 @@ class BoardController extends Controller
                 "user_id" => Auth::id(),
                 "title" => "New Board",
                 "description" => fake()->sentence(),
-                "slug"  => fake()->slug()
+                "slug"  => fake()->slug(),
+                "starred" => false
             ]
         );
     }
 
-    public function AddNewBoard($title){
+    public function AddNewBoardWithTitle(Request $request){
+        $title = $request->input('title');
         Board::Create(
             [
                 "user_id" => Auth::id(),
                 "title" => $title,
                 "description" => fake()->sentence(),
-                "slug"  => fake()->slug()
+                "slug"  => fake()->slug(),
+                "starred" => false
             ]
         );
-        return redirect()->route('boards.show', ['user_id' => Auth::id()]);
+        return redirect()->route('boards.boards', ['user_id' => Auth::id()]);
     }
 
     public function UpdateBoardTitle(Request $request, $board_id){

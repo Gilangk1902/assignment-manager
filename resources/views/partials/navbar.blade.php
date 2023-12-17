@@ -13,15 +13,29 @@
                     <a class="nav-link dropdown-toggle text-primary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         BOARDS
                     </a>
-                    
                     <ul class="dropdown-menu">
                         @forelse (Auth::user()->boards as $board)
                             <li><a href="/board/{{ $board->slug }}" class="dropdown-item text-decoration-none">{{ $board->title }}</a></li>
                         @empty
                             <li><a class="dropdown-item text-decoration-none" href="#">No boards available</a></li>
                         @endforelse
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="/make_new_board">Create new Board</a></li>
+                    </ul>
+                </li>
+                
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-primary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        STARRED BOARDS
+                    </a>
+                    <ul class="dropdown-menu">
+                        @php
+                            $starredBoards = Auth::user()->boards->where('starred', true);
+                        @endphp
+                
+                        @forelse ($starredBoards as $board)
+                            <li><a href="/board/{{ $board->slug }}" class="dropdown-item text-decoration-none">{{ $board->title }}</a></li>
+                        @empty
+                            <li><a class="dropdown-item text-decoration-none" href="#">No starred boards available</a></li>
+                        @endforelse
                     </ul>
                 </li>
                 

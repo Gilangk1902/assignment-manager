@@ -36,6 +36,7 @@ Route::get('/make_new_board',
     }
 );
 
+
 Route::post('/login', [UserController::class, 'Login'])->name('login.post');
 
 Route::get('/login',[UserController::class, 'ViewLoginPage'])->name('form');
@@ -54,6 +55,7 @@ Route::post('/group-send-right/{board_id}/{group_id}', [GroupController::class,'
 
 Route::post('/group-send-left/{board_id}/{group_id}', [GroupController::class,'SendLeft'])->name('send-left-group');
 
+
 Route::post('/send-up/{board_id}/{group_id}/{task_id}', [TaskController::class,'SendUp'])->name('send-up');
 
 Route::post('/send-down/{board_id}/{group_id}/{task_id}', [TaskController::class,'SendDown'])->name('send-down');
@@ -62,9 +64,11 @@ Route::post('/delete-task/{board_id}/{group_id}/{task_id}', [TaskController::cla
 
 Route::post('/delete-group/{board_id}/{group_id}', [GroupController::class,'Delete'])->name('delete');
 
+Route::post('/star-board/{board_id}', [BoardController::class, 'Star'])->name('star-board');
+
 Route::post('/add-new-board', [BoardController::class, 'AddNewDefaultBoard'])->name('add-new-board');
 
-Route::post('/add-new-board-with-title', [BoardController::class, 'AddNewBoard'])->name('add-new-board-with-title');
+Route::post('/add-new-board-with-title', [BoardController::class, 'AddNewBoardWithTitle'])->name('add-new-board-with-title');
 
 Route::post('/add-new-group/{board_id}', [GroupController::class,'AddNew'])->name('add-new');
 
