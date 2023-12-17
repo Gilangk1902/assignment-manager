@@ -1,3 +1,33 @@
-body{
-    
+.slider-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.slider {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.group-card {
+    flex: 0 0 auto;
+    margin-right: 20px; /* Adjust the spacing between cards */
+}
+
+.slider-buttons {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    gap: 10px; /* Adjust the spacing between buttons */
+}
+
+.slider-button {
+    font-size: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.prev, .next {
+    flex-shrink: 0;
 }

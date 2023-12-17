@@ -269,6 +269,36 @@ $(document).ready(function(){
     });
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+    const slider = document.querySelector('.slider');
+    const prevButton = document.querySelector('.prev');
+    const nextButton = document.querySelector('.next');
+    let translateValue = 0;
+
+    nextButton.addEventListener('click', function () {
+        translateValue -= 350; // Adjust the width of your group card + margin
+        updateSlider();
+    });
+
+    prevButton.addEventListener('click', function () {
+        translateValue += 350; // Adjust the width of your group card + margin
+        updateSlider();
+    });
+
+    function updateSlider() {
+        const minTranslateValue = -((slider.children.length - 3) * 350); // Adjust based on the number of visible cards
+        if (translateValue < minTranslateValue) {
+            translateValue = minTranslateValue;
+        } else if (translateValue > 0) {
+            translateValue = 0;
+        }
+
+        slider.style.transform = 'translateX(' + translateValue + 'px)';
+    }
+
+    // Your existing JavaScript logic for board operations, moving tasks, deleting tasks, etc. goes here
+});
+
 
 //Modal Scripts
 $(document).ready(function(){
@@ -340,4 +370,6 @@ $(document).ready(function(){
         $('#move-group-modal').find('#move-board-id-group').val(board_id);
         $('#move-group-modal').find('#move-group-id-group').val(group_id);
     });
+
+    
 });

@@ -3,84 +3,97 @@
 @section('container')
 <script src="{{ asset('js/board.js') }}"></script>
 <link rel="stylesheet" href="{{ asset('css/modal.css') }}">
+<link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
 <h1>
     {{ $board->title }}
 </h1>
-<h4>
+<h5>
     {{ $board->description }}
 </h4>
-<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#edit-board-title-modal" 
+<div class="mt-2 mb-4">
+    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#edit-board-title-modal" 
         data-board-id="{{ $board->id }}" data-board-title="{{ $board->title }}" data-board-description="{{ $board->description }}">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
         <path d="M11.293 0.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-10 10a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 0-1.414l10-10a1 1 0 0 1 1.414 0zM12 2l1.297 1.297-1 1L11 3l1-1zM1 8l1.297 1.297-1 1L0 9l1-1zm10-6l1.297 1.297-1 1L10 3l1-1zM2.414 12l1.297 1.297-1 1L1.414 13l1-1z"/>
     </svg>
 </button>
+</div>
 
-<div class="row">
-    {{-- groups --}}
-    @foreach($board->groups as $group)
-    <div class="card me-2" style="width: 30rem;">
-        <div class="row">
-            <p class="card-title mt-3 mx-0 col fs-4">{{ $group->position }} {{$group->title}}</p>
-            <button type="button" class="btn btn-outline-primary mt-3 mx-2 col-2" data-bs-toggle="modal" data-bs-target="#edit-group-title-modal" data-group-id="{{ $group->id }}" data-group-title="{{ $group->title }}">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-                    <path d="M11.293 0.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-10 10a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 0-1.414l10-10a1 1 0 0 1 1.414 0zM12 2l1.297 1.297-1 1L11 3l1-1zM1 8l1.297 1.297-1 1L0 9l1-1zm10-6l1.297 1.297-1 1L10 3l1-1zM2.414 12l1.297 1.297-1 1L1.414 13l1-1z"/>
-                </svg>
-            </button>
-            <div class="mt-3 mx-2 col-2">
-                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#move-group-modal"
-                    data-board-id="{{ $board->id }}" data-group-title="{{ $group->title }}" data-group-id="{{ $group->id }}">
-                    Move </button>
-            </div>
-        </div>
-        <div class="card-body">
-            {{-- tasks --}}
-            @foreach($group->tasks as $task)
-            <div class="card-header my-2 mx-0 px-0">
-                <div class="row ">
-                    <p class="col m-2 mx-3">{{ $task->position }} {{$task->title}}</p>
-                    {{-- edit button --}}
-                    <button type="button" class="btn btn-outline-primary btn-sm col-2 p-0" data-bs-toggle="modal" data-bs-target="#edit-task-title-modal" 
-                        data-task-id="{{ $task->id }}" data-task-title="{{ $task->title }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+<div class="slider-container">
+    <div class="slider">
+        {{-- groups --}}
+        @foreach($board->groups as $group)
+        <div class="card me-2 group-card" style="width: 30rem;">
+            <div class="row">
+                <p class="card-title mt-3 ml-4 col fs-4">{{$group->title}}</p>
+                <div class="mt-3 col-1 mr-2">
+                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#edit-group-title-modal" data-group-id="{{ $group->id }}" data-group-title="{{ $group->title }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
                             <path d="M11.293 0.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-10 10a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 0-1.414l10-10a1 1 0 0 1 1.414 0zM12 2l1.297 1.297-1 1L11 3l1-1zM1 8l1.297 1.297-1 1L0 9l1-1zm10-6l1.297 1.297-1 1L10 3l1-1zM2.414 12l1.297 1.297-1 1L1.414 13l1-1z"/>
                         </svg>
                     </button>
-                    {{-- manage task buttons --}}
-                    <div class="col">
-                        <div class="row">
-                            <div class="col">
-                                <button type="button" class="btn btn-outline-primary btn" data-bs-toggle="modal" data-bs-target="#move-task-modal" 
-                                    data-task-id="{{ $task->id }}" data-task-title="{{ $task->title }}" data-board-id="{{ $board->id }}" data-group-id="{{ $group->id }}">
-                                    Move
-                                </button>
+                </div>
+                
+                <div class="mt-3 mr-4 col-2">
+                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#move-group-modal"
+                        data-board-id="{{ $board->id }}" data-group-title="{{ $group->title }}" data-group-id="{{ $group->id }}">
+                        Move </button>
+                </div>
+            </div>
+            <div class="card-body">
+                {{-- tasks --}}
+                @foreach($group->tasks as $task)
+                <div class="card-header my-2 mx-0 px-0">
+                    <div class="row ">
+                        <p class="col m-2 mx-3">{{ $task->position }} {{$task->title}}</p>
+                        {{-- edit button --}}
+                        <button type="button" class="btn btn-outline-primary btn-sm col-2 p-0" data-bs-toggle="modal" data-bs-target="#edit-task-title-modal" 
+                            data-task-id="{{ $task->id }}" data-task-title="{{ $task->title }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                <path d="M11.293 0.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-10 10a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 0-1.414l10-10a1 1 0 0 1 1.414 0zM12 2l1.297 1.297-1 1L11 3l1-1zM1 8l1.297 1.297-1 1L0 9l1-1zm10-6l1.297 1.297-1 1L10 3l1-1zM2.414 12l1.297 1.297-1 1L1.414 13l1-1z"/>
+                            </svg>
+                        </button>
+                        {{-- manage task buttons --}}
+                        <div class="col">
+                            <div class="row">
+                                <div class="col">
+                                    <button type="button" class="btn btn-outline-primary btn" data-bs-toggle="modal" data-bs-target="#move-task-modal" 
+                                        data-task-id="{{ $task->id }}" data-task-title="{{ $task->title }}" data-board-id="{{ $board->id }}" data-group-id="{{ $group->id }}">
+                                        Move
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            @endforeach
-
-            {{-- Add New Task --}}
-            <div>
-                <div class=""> 
-                    <button id="add-new-task-button" type="submit" class="add-new-task-button btn btn-outline-primary btn-sm"
-                    data-board-id="{{ $board->id }}" data-group-id="{{ $group->id }}">+ Add New Task</button>
+                @endforeach
+    
+                {{-- Add New Task --}}
+                <div>
+                    <div class=""> 
+                        <button id="add-new-task-button" type="submit" class="add-new-task-button btn btn-outline-primary btn-sm"
+                        data-board-id="{{ $board->id }}" data-group-id="{{ $group->id }}">+ Add New Task</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    @endforeach
-    <div>
-        {{-- Add New Group --}}
-        <div class="card-header my-2"> 
-            @csrf
-            <button id="add-new-group-button" type="submit" class="add-new-group-button btn btn-outline-primary btn-sm"
-                data-board-id="{{ $board->id }}">+ Add New Group</button>
+        @endforeach
+        <div>
+            
         </div>
     </div>
+    <button class="slider-button prev">&lt;</button>
+    <button class="slider-button next">&gt;</button>
+
+    {{-- Add New Group --}}
+    <div class="card-header my-2"> 
+        @csrf
+        <button id="add-new-group-button" type="submit" class="add-new-group-button btn btn-outline-primary btn-sm"
+            data-board-id="{{ $board->id }}">+ Add New Group</button>
+    </div>
 </div>
+
   
 <!-- Edit Board Modal -->
 <div class="modal fade" id="edit-board-title-modal" tabindex="-1" role="dialog" aria-labelledby="edit-board-title-modal-label" aria-hidden="true">
@@ -259,5 +272,9 @@
         </div>
     </div>
 </div>
+
+    <script>
+    
+</script>
 
 @endsection
